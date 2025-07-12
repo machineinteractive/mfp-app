@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Vite + TS</title>
+  <style>
+    html,
+    body {
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+
+      background-color: var(--c-black);
+      --c-green: #1beb9e;
+      --c-black: #1a1a1a;
+    }
+
+    .mini-player {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 72px + 1em;
+      background-color: #444;
+      color: white;
+      display: flex;
+      flex-direction: row;
+      color: var(--c-green);
+      padding: 1em;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .mini-player :first-child {
+      flex-grow: 1;
+    }
+
+    .mini-player :last-child {
+      width: min-content;
+    }
+
+    .mini-player-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    #playlist {
+      /* position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 56px);
+      overflow-y: auto; */
+      background-color: #aaa;
+      padding: 20px;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      color: var(--c-green);
+      display: flex;
+      width: 100vw;
+      justify-content: center
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <p>mfp();</p>
+  </header>
+
+  <div class="mini-player">
+    <div>
+      <p>Episode 74: NCW</p>
+      <p>00:00:00</p>
+    </div>
+    <div class="mini-player-controls">
+      <img id="mini-player-play" src="play.svg" alt="Play" width="56" height="56">
+      <img id="mini-player-stop" class="hidden" src="stop.svg" alt="Stop" width="56" height="56">
+    </div>
+
+  </div>
+
+</body>
+
+</html>

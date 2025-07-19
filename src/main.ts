@@ -23,15 +23,30 @@
 
 // setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
 
+function hasMediaSession(): boolean {
+  return "mediaSession" in navigator
+}
 
 const mfpAudioPlayer = document.querySelector<HTMLAudioElement>('#mfp-audio-player')!
-const playButton = document.querySelector<HTMLButtonElement>('#mini-player-play-button')!
-const stopButton = document.querySelector<HTMLButtonElement>('#mini-player-stop-button')!
+const miniPlayButton = document.querySelector<HTMLButtonElement>('#mini-player-play-button')!
+const miniStopButton = document.querySelector<HTMLButtonElement>('#mini-player-stop-button')!
 
 const title = document.querySelector<HTMLParagraphElement>('#mini-player-title')!
 const duration = document.querySelector<HTMLParagraphElement>('#mini-player-duration')!
 
 let curLink: HTMLLinkElement | null = null
+
+
+function showMiniPlayButton() {
+  miniPlayButton.classList.remove('hidden')
+  miniStopButton.classList.add('hidden')
+}
+
+function showMiniStopButton() {
+  miniPlayButton.classList.add('hidden')
+  miniStopButton.classList.remove('hidden')
+}
+
 
 mfpAudioPlayer.addEventListener('play', () => {
   console.log('Audio player is playing')
@@ -54,18 +69,16 @@ mfpAudioPlayer.addEventListener('timeupdate', (event) => {
   console.log('Audio player time update:', mfpAudioPlayer.currentTime, duration.textContent)
 })
 
-stopButton.addEventListener('click', () => {
+miniStopButton.addEventListener('click', () => {
   console.log('Stop button clicked')
   mfpAudioPlayer.pause()
-  playButton.classList.remove('hidden')
-  stopButton.classList.add('hidden')
+  showMiniPlayButton()
 })
 
-playButton.addEventListener('click', () => {
+miniPlayButton.addEventListener('click', () => {
   console.log('Play button clicked')
   mfpAudioPlayer.play()
-  playButton.classList.add('hidden')
-  stopButton.classList.remove('hidden')
+  showMiniStopButton()
 })
 
 document.addEventListener('click', (event) => {
@@ -77,15 +90,48 @@ document.addEventListener('click', (event) => {
 
     //window.open(target.href, '_blank');
 
-    title.textContent = target.innerText || 'Unknown Title'
+    const titleText = target.innerText || 'Unknown Title'
+
+    title.textContent = titleText
     duration.textContent = '00:00:00'
 
     mfpAudioPlayer.src = target.href
     mfpAudioPlayer.load()
 
-    playButton.classList.add('hidden')
-    stopButton.classList.remove('hidden')
+    miniPlayButton.classList.add('hidden')
+    miniStopButton.classList.remove('hidden')
+
+    if (hasMediaSession()) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: titleText,
+        artist: "musicforprogramming.net",
+        album: titleText,
+        artwork: [
+          { src: "folder.png", sizes: "512x512", type: "image/png" },
+        ]
+      })
+    }
 
     event.preventDefault()
   }
 })
+
+document.addEventListener("visibilitychange", () => {
+  console.log(`visibility change: ${document.visibilityState}`)
+})
+
+if (hasMediaSession()) {
+
+  navigator.mediaSession.setActionHandler('play', async () => {
+    await mfpAudioPlayer.play()
+    showMiniStopButton()
+  })
+
+  navigator.mediaSession.setActionHandler('pause', async () => {
+    mfpAudioPlayer.pause()
+    showMiniPlayButton()
+  })
+
+}
+
+

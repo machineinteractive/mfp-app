@@ -26,9 +26,9 @@
      inkscape:pagecheckerboard="1"
      inkscape:deskcolor="#505050"
      showgrid="true"
-     inkscape:zoom="0.5"
-     inkscape:cx="28"
-     inkscape:cy="148"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="156.62415"
+     inkscape:cy="261.62951"
      inkscape:window-width="1530"
      inkscape:window-height="1209"
      inkscape:window-x="0"
@@ -65,14 +65,14 @@
        transform="translate(-5.6454903e-7)" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:96px;font-family:'IBM Plex Mono';-inkscape-font-specification:'IBM Plex Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#00ff00"
-       x="50.136726"
-       y="387.13873"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:128px;font-family:'IBM Plex Mono';-inkscape-font-specification:'IBM Plex Mono, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#00ff00"
+       x="71.448738"
+       y="394.81882"
        id="text1"><tspan
          sodipodi:role="line"
          id="tspan1"
-         x="50.136726"
-         y="387.13873"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:96px;font-family:'IBM Plex Mono';-inkscape-font-specification:'IBM Plex Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1beb9e;fill-opacity:1">mfp();</tspan></text>
+         x="71.448738"
+         y="394.81882"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:128px;font-family:'IBM Plex Mono';-inkscape-font-specification:'IBM Plex Mono, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1beb9e;fill-opacity:1">mfp;</tspan></text>
   </g>
 </svg>

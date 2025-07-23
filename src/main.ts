@@ -121,7 +121,6 @@ document.addEventListener("visibilitychange", () => {
 })
 
 if (hasMediaSession()) {
-
   navigator.mediaSession.setActionHandler('play', async () => {
     await mfpAudioPlayer.play()
     showMiniStopButton()
@@ -131,7 +130,48 @@ if (hasMediaSession()) {
     mfpAudioPlayer.pause()
     showMiniPlayButton()
   })
-
 }
 
 
+async function refreshMfpFeed() {
+
+  if (import.meta.env.DEV) {
+    console.log("Development mode: fetching RSS feed from proxy")
+  }
+
+  let response = await fetch("/rss/rss.xml")
+
+  if (!response.ok) {
+    console.error("Failed to fetch RSS feed:", response.statusText)
+    return
+  }
+
+  const playerList = document.querySelector<HTMLDivElement>('.playlist')!
+  playerList.innerHTML = ''
+
+  const fragment = new DocumentFragment()
+
+  const text = await response.text()
+  const parser = new DOMParser()
+  const xmlDoc = parser.parseFromString(text, "application/xml")
+  const items = xmlDoc.querySelectorAll("item")
+  items?.forEach((item) => {
+    const title = item.querySelector("title")?.textContent
+    const link = item.querySelector("link")?.textContent
+    const pubDate = item.querySelector("pubDate")?.textContent
+    const guid = item.querySelector("guid")?.textContent
+    console.log("RSS Item:", { title, link, pubDate, guid })
+
+    const a = document.createElement('a')
+    a.href = guid || ''
+    a.textContent = title || 'Unknown Title'
+    a.target = '_blank'
+    a.rel = 'noopener noreferrer'
+    fragment.appendChild(a)
+  })
+
+  playerList.appendChild(fragment)
+}
+
+
+await refreshMfpFeed()

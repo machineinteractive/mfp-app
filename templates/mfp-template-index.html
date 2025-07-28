@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/mfp.svg" sizes="any" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a1a1a">
+
+  <title>mfp;</title>
+  <style>
+    html,
+    body {
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+
+      background-color: var(--c-black);
+      --c-green: #1beb9e;
+      --c-black: #1a1a1a;
+    }
+
+
+    @media (display-mode: standalone) {
+      body {
+        background-color: var(--c-black);
+      }
+    }
+
+    .mini-player {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 72px + 1em;
+      background-color: #444;
+      color: white;
+      display: flex;
+      flex-direction: row;
+      color: var(--c-green);
+      padding: 1em;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .mini-player :first-child {
+      flex-grow: 1;
+    }
+
+    .mini-player :last-child {
+      width: min-content;
+    }
+
+    .mini-player-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      color: var(--c-green);
+      background-color: var(--c-black);
+      display: flex;
+      width: 100vw;
+      height: 48px;
+      justify-content: center
+    }
+
+    .hidden {
+      display: none;
+    }
+
+
+    .playlist {
+      display: flex;
+      padding-top: 48px;
+      padding-bottom: 128px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 72px + 1em;
+    }
+
+
+    .playlist a {
+      display: block;
+      box-sizing: border-box;
+      color: var(--c-green);
+      text-align: left;
+      min-height: 56px;
+      padding-left: 16px;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <p>mfp;</p>
+  </header>
+
+  <div class="playlist">
+    {% for episode in episodes %}
+    <a data-links="{{ episode.links | e }}" data-tracks="{{ episode.tracks | e }}" href="{{ episode.guid }}">{{
+      episode.title
+      }}</a>
+    {% endfor %}
+  </div>
+
+
+  <div class="mini-player">
+    <div class="mini-player-info">
+      <p id="mini-player-title">---------</p>
+      <p id="mini-player-duration">00:00:00</p>
+    </div>
+    <div class="mini-player-controls">
+      <img id="mini-player-play-button" class="hidden" src="play.svg" alt="Play" width="56" height="56">
+      <img id="mini-player-stop-button" class="hidden" src="stop.svg" alt="Stop" width="56" height="56">
+    </div>
+
+  </div>
+
+  <audio id="mfp-audio-player"></audio>
+
+  <script type="module" src="/src/main.ts"></script>
+
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-name: "Build index.html"
+name: "Build mfp public files"
 
 on:
   schedule:
@@ -19,9 +19,9 @@ jobs:
         with:
           python-version: "3.13"
           cache: "pip"
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: pip install -r requirements.txt
-      - name: Build mfp index.html and episodes.json and save changes
+      - name: Build mfp public/index.html and public/episodes.json
         run: |
-          python build-mfp-static.py
+          python build-mfp-public-files.py
           bash commit-changes.sh

@@ -1,30 +1,24 @@
 {
   "name": "mfp;",
-  "shortname": "mfp;",
+  "short_name": "mfp;",
+  "start_url": "/",
   "display": "standalone",
-  "description": "A PWA version of musicforprogramming.net",
+  "description": "A PWA remix of musicforprogramming.net",
+  "categories": ["audio", "music"],
+  "theme_color": "#1a1a1a",
   "background_color": "#1a1a1a",
   "icons": [
     {
-      "src": "pwa-64x64.png",
-      "sizes": "64x64",
-      "type": "image/png"
-    },
-    {
       "src": "pwa-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable any"
     },
     {
       "src": "pwa-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "maskable-icon-512x512.png",
-      "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "maskable any"
     }
   ]
 }

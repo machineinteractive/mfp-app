@@ -1,9 +1,13 @@
+# WIP
+
 ![mfp;](public/mfp.png)
 
-A PWA version of [musicforprogramming.net](https://musicforprogramming.net).
+A PWA remix of [musicforprogramming.net](https://musicforprogramming.net).
 
 https://mfp-app.pages.dev/
 
-pip install feeder
-pip install requests
-pip install Jinja2
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```

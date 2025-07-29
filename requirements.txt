@@ -1,0 +1,4 @@
+# requirements.txt
+feedparser
+Jinja2
+requests

@@ -1,8 +1,8 @@
-name: "Build mfp public files"
+name: "Build mfp"
 
 on:
   schedule:
-    - cron: "* */6 * * *"
+    - cron: "0 5 * * *"
   push:
     branches:
       - "main"
@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 jobs:
-  update-public-files:
+  build-mfp:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,5 +23,5 @@ jobs:
         run: pip install -r requirements.txt
       - name: Build mfp public/index.html and public/episodes.json
         run: |
-          python build-mfp-public-files.py
-          bash commit-changes.sh
+          python build-mfp.py
+          bash commit-build-changes.sh

@@ -24,4 +24,4 @@ jobs:
       - name: Build mfp public/index.html and public/episodes.json
         run: |
           python build-mfp.py
-          bash commit-build-changes.sh
+          bash commit-build.sh

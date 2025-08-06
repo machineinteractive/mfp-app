@@ -34,63 +34,65 @@
       }
     }
 
-    .mini-player {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100vw;
-      height: 72px + 1em;
-      background-color: #444;
-      color: white;
-      display: flex;
-      flex-direction: row;
-      color: var(--c-green);
-      padding: 1em;
-      margin: 0;
-      box-sizing: border-box;
-    }
-
-    .mini-player :first-child {
-      flex-grow: 1;
-    }
-
-    .mini-player :last-child {
-      width: min-content;
-    }
-
-    .mini-player-controls {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
     header {
       position: fixed;
       top: 0;
-      color: var(--c-green);
+      left: 0;
       background-color: var(--c-black);
+      color: var(--c-green);
       display: flex;
       width: 100vw;
       height: 48px;
       justify-content: center
     }
 
+    .mini-player {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      /* background-color: var(--c-black); */
+      background-color: #4a4a4a;
+      color: var(--c-green);
+      display: flex;
+      flex-direction: column;
+      padding: 1em;
+      padding-bottom: 2em;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    /* .mini-player :first-child {
+      flex-grow: 1;
+    }
+
+    .mini-player :last-child {
+      width: min-content;
+    } */
+
+    .mini-player-controls {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+
+    .player-controls-disabled {
+      filter: grayscale(1);
+      opacity: 0.25;
+    }
+
     .hidden {
       display: none;
     }
 
-
     .playlist {
       display: flex;
       padding-top: 48px;
-      padding-bottom: 128px;
+      padding-bottom: 224px;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: 72px + 1em;
     }
-
 
     .playlist a {
       display: block;
@@ -128,10 +130,13 @@
       <p id="mini-player-duration">00:00:00</p>
     </div>
     <div class="mini-player-controls">
-      <img id="mini-player-play-button" class="hidden" src="play.svg" alt="Play" width="56" height="56">
-      <img id="mini-player-stop-button" class="hidden" src="stop.svg" alt="Stop" width="56" height="56">
+      <img id="button-seek-back" class="player-controls-disabled" src="seek_back.svg" alt="Seek back 30s" width="56"
+        height="56">
+      <img id="button-play" class="player-controls-disabled" src="play.svg" alt="Play" width="56" height="56">
+      <img id="button-stop" class="hidden" src="stop.svg" alt="Stop" width="56" height="56">
+      <img id="button-seek-forward" class="player-controls-disabled" src="seek_forward.svg" alt="Seek back 30s"
+        width="56" height="56">
     </div>
-
   </div>
 
   <audio id="mfp-audio-player"></audio>

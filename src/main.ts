@@ -13,8 +13,10 @@ function hasMediaSession(): boolean {
 }
 
 const mfpAudioPlayer = document.querySelector<HTMLAudioElement>('#mfp-audio-player')!
-const miniPlayButton = document.querySelector<HTMLButtonElement>('#mini-player-play-button')!
-const miniStopButton = document.querySelector<HTMLButtonElement>('#mini-player-stop-button')!
+const buttonPlay = document.querySelector<HTMLButtonElement>('#button-play')!
+const buttonStop = document.querySelector<HTMLButtonElement>('#button-stop')!
+const buttonSeekBack = document.querySelector<HTMLButtonElement>('#button-seek-back')!
+const buttonSeekForward = document.querySelector<HTMLButtonElement>('#button-seek-forward')!
 
 const title = document.querySelector<HTMLParagraphElement>('#mini-player-title')!
 const duration = document.querySelector<HTMLParagraphElement>('#mini-player-duration')!
@@ -23,13 +25,13 @@ let curLink: HTMLAnchorElement | null = null
 
 
 function showMiniPlayButton() {
-  miniPlayButton.classList.remove('hidden')
-  miniStopButton.classList.add('hidden')
+  buttonPlay.classList.remove('hidden')
+  buttonStop.classList.add('hidden')
 }
 
 function showMiniStopButton() {
-  miniPlayButton.classList.add('hidden')
-  miniStopButton.classList.remove('hidden')
+  buttonPlay.classList.add('hidden')
+  buttonStop.classList.remove('hidden')
 }
 
 
@@ -64,17 +66,40 @@ mfpAudioPlayer.addEventListener('timeupdate', () => {
   //console.log('Audio player time update:', mfpAudioPlayer.currentTime, duration.textContent)
 })
 
-miniStopButton.addEventListener('click', () => {
+buttonStop.addEventListener('click', () => {
   console.log('Stop button clicked')
   mfpAudioPlayer.pause()
   showMiniPlayButton()
 })
 
-miniPlayButton.addEventListener('click', () => {
+buttonPlay.addEventListener('click', () => {
   console.log('Play button clicked')
   mfpAudioPlayer.play()
   showMiniStopButton()
 })
+
+buttonSeekBack.addEventListener('click', () => {
+  console.log('Seek back button clicked')
+  // TODO do not seek below zero seconds
+  mfpAudioPlayer.currentTime -= 30
+})
+
+buttonSeekForward.addEventListener('click', () => {
+  console.log('Seek forward button clicked')
+  // TODO do not seek past max seek time
+  mfpAudioPlayer.currentTime += 30
+})
+
+
+
+function _enableMiniPlayerControls() {
+  buttonSeekBack.classList.remove('player-controls-disabled')
+  buttonSeekForward.classList.remove('player-controls-disabled')
+  buttonPlay.classList.remove('player-controls-disabled')
+  buttonStop.classList.remove('player-controls-disabled')
+  buttonPlay.classList.add('hidden')
+  buttonStop.classList.remove('hidden')
+}
 
 document.addEventListener('click', (event) => {
   const target = event.target as HTMLAnchorElement
@@ -103,8 +128,7 @@ document.addEventListener('click', (event) => {
     mfpAudioPlayer.src = target.href
     mfpAudioPlayer.load()
 
-    miniPlayButton.classList.add('hidden')
-    miniStopButton.classList.remove('hidden')
+    _enableMiniPlayerControls()
 
     if (hasMediaSession()) {
       navigator.mediaSession.metadata = new MediaMetadata({

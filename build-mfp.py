@@ -16,6 +16,7 @@ class Episode:
     guid: str
     tracks: str
     links: str
+    itunes_duration: str
 
 def main():
     episodes = []
@@ -37,7 +38,8 @@ def main():
             pubDate=entry.published,
             guid=entry.guid,
             tracks="",
-            links=""
+            links="",
+            itunes_duration=entry.itunes_duration
         )
         episodes.append(episode)
         # print(entry.title)

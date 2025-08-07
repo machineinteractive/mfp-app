@@ -84,7 +84,7 @@ mfpAudioPlayer.addEventListener('timeupdate', () => {
 })
 
 buttonStop.addEventListener('click', () => {
-  if (buttonStop.classList.contains('player-controls-disabled')) {
+  if (buttonStop.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     console.log('Play button is disabled, ignoring click')
     return
   }
@@ -94,7 +94,7 @@ buttonStop.addEventListener('click', () => {
 })
 
 buttonPlay.addEventListener('click', () => {
-  if (buttonPlay.classList.contains('player-controls-disabled')) {
+  if (buttonPlay.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
   mfpAudioPlayer.play()

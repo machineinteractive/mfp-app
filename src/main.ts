@@ -37,18 +37,20 @@ function showMiniStopButton() {
 mfpAudioPlayer.addEventListener('play', () => {
   console.log('Audio player is playing')
   navigator.mediaSession.playbackState = 'playing'
+  _enableSeekButtons()
 })
 
 mfpAudioPlayer.addEventListener('pause', () => {
   console.log('Audio player is paused')
   navigator.mediaSession.playbackState = 'paused'
   showMiniPlayButton()
-  _toggleSeekButtons()
+  _disableSeekButtons()
 })
 
 mfpAudioPlayer.addEventListener('ended', () => {
   console.log('Audio player is ended')
   showMiniPlayButton()
+  _disableSeekButtons()
 })
 
 mfpAudioPlayer.addEventListener('loadstart', () => {
@@ -100,31 +102,36 @@ buttonSeekBack.addEventListener('click', () => {
   if (buttonSeekBack.classList.contains('player-controls-disabled')) {
     return
   }
-  mfpAudioPlayer.currentTime = Math.max(0, mfpAudioPlayer.currentTime - 30)
+
+  const currentTime = Math.floor(mfpAudioPlayer.currentTime - 30)
+
+  mfpAudioPlayer.currentTime = Math.max(0, currentTime)
 })
 
 buttonSeekForward.addEventListener('click', () => {
   if (buttonSeekForward.classList.contains('player-controls-disabled')) {
     return
   }
-  mfpAudioPlayer.currentTime = Math.min(mfpAudioPlayer.duration - 1, mfpAudioPlayer.currentTime + 30)
+
+  const duration = Math.floor(mfpAudioPlayer.duration - 1)
+  const currentTime = Math.floor(mfpAudioPlayer.currentTime + 30)
+
+  mfpAudioPlayer.currentTime = Math.min(duration, currentTime)
 })
 
 
 const PLAYER_CONTROLS_DISABLED_CLASS = 'player-controls-disabled'
 
+function _enableSeekButtons() {
+  console.log('Enabling seek buttons')
+  buttonSeekBack.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  buttonSeekForward.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+}
 
-function _toggleSeekButtons() {
-  console.log('Toggling seek buttons')
-  if (buttonSeekBack.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
-    console.log('Enabling seek buttons')
-    buttonSeekBack.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-    buttonSeekForward.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  } else {
-    console.log('Disabling seek buttons')
-    buttonSeekBack.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
-    buttonSeekForward.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
-  }
+function _disableSeekButtons() {
+  console.log('Disabling seek buttons')
+  buttonSeekBack.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
+  buttonSeekForward.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
 }
 
 

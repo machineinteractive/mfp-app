@@ -8,6 +8,9 @@
 //   links: Array<string>
 // }
 
+const PLAYER_CONTROLS_DISABLED_CLASS = 'player-controls-disabled'
+const HIDDEN_CLASS = 'hidden'
+
 function hasMediaSession(): boolean {
   return "mediaSession" in navigator
 }
@@ -25,13 +28,13 @@ let curLink: HTMLAnchorElement | null = null
 
 
 function showMiniPlayButton() {
-  buttonPlay.classList.remove('hidden')
-  buttonStop.classList.add('hidden')
+  buttonPlay.classList.remove(HIDDEN_CLASS)
+  buttonStop.classList.add(HIDDEN_CLASS)
 }
 
 function showMiniStopButton() {
-  buttonPlay.classList.add('hidden')
-  buttonStop.classList.remove('hidden')
+  buttonPlay.classList.add(HIDDEN_CLASS)
+  buttonStop.classList.remove(HIDDEN_CLASS)
 }
 
 mfpAudioPlayer.addEventListener('play', () => {
@@ -99,7 +102,7 @@ buttonPlay.addEventListener('click', () => {
 })
 
 buttonSeekBack.addEventListener('click', () => {
-  if (buttonSeekBack.classList.contains('player-controls-disabled')) {
+  if (buttonSeekBack.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
 
@@ -109,7 +112,7 @@ buttonSeekBack.addEventListener('click', () => {
 })
 
 buttonSeekForward.addEventListener('click', () => {
-  if (buttonSeekForward.classList.contains('player-controls-disabled')) {
+  if (buttonSeekForward.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
 
@@ -120,7 +123,6 @@ buttonSeekForward.addEventListener('click', () => {
 })
 
 
-const PLAYER_CONTROLS_DISABLED_CLASS = 'player-controls-disabled'
 
 function _enableSeekButtons() {
   console.log('Enabling seek buttons')
@@ -140,8 +142,8 @@ function _enableMiniPlayerControls() {
   buttonSeekForward.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   buttonPlay.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   buttonStop.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  buttonPlay.classList.add('hidden')
-  buttonStop.classList.remove('hidden')
+  buttonPlay.classList.add(HIDDEN_CLASS)
+  buttonStop.classList.remove(HIDDEN_CLASS)
 }
 
 document.addEventListener('click', (event) => {

@@ -1,4 +1,3 @@
-
 // interface Episode {
 //   title: string
 //   link: string
@@ -11,10 +10,6 @@
 const PLAYER_CONTROLS_DISABLED_CLASS = 'player-controls-disabled'
 const HIDDEN_CLASS = 'hidden'
 
-function hasMediaSession(): boolean {
-  return "mediaSession" in navigator
-}
-
 const mfpAudioPlayer = document.querySelector<HTMLAudioElement>('#mfp-audio-player')!
 const buttonPlay = document.querySelector<HTMLButtonElement>('#button-play')!
 const buttonStop = document.querySelector<HTMLButtonElement>('#button-stop')!
@@ -26,6 +21,9 @@ const duration = document.querySelector<HTMLParagraphElement>('#mini-player-dura
 
 let curLink: HTMLAnchorElement | null = null
 
+function hasMediaSession(): boolean {
+  return "mediaSession" in navigator
+}
 
 function showMiniPlayButton() {
   buttonPlay.classList.remove(HIDDEN_CLASS)
@@ -122,8 +120,6 @@ buttonSeekForward.addEventListener('click', () => {
   mfpAudioPlayer.currentTime = Math.min(duration, currentTime)
 })
 
-
-
 function _enableSeekButtons() {
   console.log('Enabling seek buttons')
   buttonSeekBack.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
@@ -135,7 +131,6 @@ function _disableSeekButtons() {
   buttonSeekBack.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
   buttonSeekForward.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
 }
-
 
 function _enableMiniPlayerControls() {
   buttonSeekBack.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)

@@ -7,7 +7,6 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 import json
 
 
-
 @dataclass
 class Episode:
     title: str
@@ -125,7 +124,7 @@ def main():
     print("Episodes:", episodes)
 
     environment = Environment(loader=FileSystemLoader("templates/"), autoescape=select_autoescape())
-    template = environment.get_template("mfp-template-index.html")
+    template = environment.get_template("index.html")
 
     output = template.render(episodes=episodes)
 

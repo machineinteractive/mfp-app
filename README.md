@@ -8,11 +8,11 @@ mfp; is a PWA remix of [musicforprogramming.net](https://musicforprogramming.net
 
 All the episode data comes from the [musicforprogramming.net RSS feed](https://musicforprogramming.net/rss.xml).
 
-Thank you [Dataset](https://datassette.net/) for all the years of amazing music.
+Thank you [Datassette](https://datassette.net/) for all the years of amazing music.
 
 This app is not affiliated with [musicforprogramming.net](https://musicforprogramming.net).
 
-Details on how to support [Dataset](https://datassette.net/) and the episode artists can be found here:
+Details on how to support [Datassette](https://datassette.net/) and the episode artists can be found here:
 
 [https://musicforprogramming.net/credits](https://musicforprogramming.net/credits)
 

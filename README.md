@@ -10,11 +10,11 @@ All the episode data comes from the [musicforprogramming.net RSS feed](https://m
 
 Thank you [Datassette](https://datassette.net/) for all the years of amazing music.
 
-This app is not affiliated with [musicforprogramming.net](https://musicforprogramming.net).
-
 Details on how to support [Datassette](https://datassette.net/) and the episode artists can be found here:
 
 [https://musicforprogramming.net/credits](https://musicforprogramming.net/credits)
+
+NOTE: This app is not affiliated with [musicforprogramming.net](https://musicforprogramming.net).
 
 The PWA can be found here:
 

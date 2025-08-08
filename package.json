@@ -8,8 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "workflow-build-mfp": "source .venv/bin/activate && python build-mfp.py",
-    "icons": "pwa-asset-generator public/mfp.svg ./public/assets --icon-only --favicon --type png --opaque --background '#1a1a1a'",
-    "splash": "pwa-asset-generator public/mfp.svg ./public/splash --splash-only --background '#1a1a1a' --type png"
+    "icons": "pwa-asset-generator public/mfp.svg ./public/assets --icon-only --favicon --type png --opaque --background '#000000'",
+    "splash": "pwa-asset-generator public/mfp.svg ./public/splash --splash-only --background '#000000' --type png"
   },
   "devDependencies": {
     "typescript": "~5.8.3",

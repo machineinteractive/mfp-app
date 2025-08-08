@@ -1,3 +1,7 @@
+    :root {
+      --mini-player-base-size: 25vh;
+    }
+
     html,
     body {
       height: 100vh;
@@ -95,7 +99,8 @@
       --c-black: #1a1a1a;
       --c-black-mini-player: #2a2a2a;
       --h-header-height: 48px;
-      --padding: 16px;
+      --padding-4: 4px;
+      --padding-16: 16px;
       --a-min-height: 56px;
 
       font-family: "IBM Plex Mono", monospace;
@@ -135,12 +140,12 @@
 
     header :first-child {
       margin-right: auto;
-      padding-left: var(--padding);
+      padding-left: var(--padding-16);
     }
 
     header :last-child {
       margin-left: auto;
-      padding-right: var(--padding);
+      padding-right: var(--padding-16);
     }
 
     #mini-player {
@@ -148,10 +153,13 @@
       bottom: 0;
       left: 0;
       width: 100vw;
+      height: var(--mini-player-base-size);
       background-color: var(--c-black-mini-player);
       display: flex;
       flex-direction: column;
-      padding: var(--padding);
+      /* align-items: center; */
+      justify-content: center;
+      padding: var(--padding-16);
       margin: 0;
       box-sizing: border-box;
     }
@@ -161,11 +169,55 @@
       flex-direction: row;
       justify-content: space-evenly;
       align-items: center;
+
     }
 
-    #mini-player-duration {
-      padding-bottom: 1em;
+    @media (max-width: 360px) {
+      #mini-player p {
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
+
+    @media (max-height: 500px) {
+      #mini-player p {
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      #button-seek-back,
+      #button-seek-forward {
+        width: 16px;
+        height: 16px;
+      }
+
+      #button-play,
+      #button-stop {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    @media (min-height: 501px) {
+
+
+      #button-seek-back,
+      #button-seek-forward {
+        width: 36px;
+        height: 36px;
+      }
+
+      #button-play,
+      #button-stop {
+        width: 56px;
+        height: 56px;
+      }
+    }
+
 
     .player-controls-disabled {
       filter: grayscale(1);
@@ -187,14 +239,14 @@
     .content-container h2,
     .content-container h3,
     .content-container h4 {
-      padding-left: var(--padding);
-      padding-right: var(--padding);
+      padding-left: var(--padding-16);
+      padding-right: var(--padding-16);
     }
 
 
     .content-container p {
-      padding-left: var(--padding);
-      padding-right: var(--padding);
+      padding-left: var(--padding-16);
+      padding-right: var(--padding-16);
       margin: 0;
     }
 
@@ -206,8 +258,8 @@
       text-align: left;
       min-height: var(--a-min-height);
       width: 100vw;
-      padding-left: var(--padding);
-      padding-right: var(--padding);
+      padding-left: var(--padding-16);
+      padding-right: var(--padding-16);
       display: flex;
       align-items: center;
       text-decoration: none;
@@ -229,9 +281,9 @@
     }
 
     #about p {
-      padding-bottom: var(--padding);
-      padding-left: var(--padding);
-      padding-right: var(--padding);
+      padding-bottom: var(--padding-16);
+      padding-left: var(--padding-16);
+      padding-right: var(--padding-16);
       line-height: 1.5;
     }
 

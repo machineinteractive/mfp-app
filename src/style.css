@@ -96,6 +96,7 @@
       --c-black-mini-player: #2a2a2a;
       --h-header-height: 48px;
       --padding: 16px;
+      --a-min-height: 56px;
 
       font-family: "IBM Plex Mono", monospace;
       font-weight: 400;
@@ -202,7 +203,7 @@
       box-sizing: border-box;
       color: var(--c-green);
       text-align: left;
-      min-height: 48px;
+      min-height: var(--a-min-height);
       width: 100vw;
       padding-left: var(--padding);
       padding-right: var(--padding);
@@ -230,7 +231,7 @@
       padding-bottom: var(--padding);
       padding-left: var(--padding);
       padding-right: var(--padding);
-      line-height: 2;
+      line-height: 1.5;
     }
 
     .normal-hyperlink a {

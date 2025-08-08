@@ -177,15 +177,13 @@ document.addEventListener('click', (event) => {
 
       currentlyPlayingTitle.innerHTML = titleText
       currentlyPlayingTracks.innerHTML = tracks.map((track: string) => {
-
         const url = `https://www.google.com/search?q=${encodeURIComponent('site:discogs.com ')}${encodeURIComponent(track)}`
-
         return `<a href="${url}" target="_blank" rel="noopener noreferrer">${track}</a>`
-      }).join('<br>')
+      }).join('\n')
 
       currentlyPlayingLinks.innerHTML = links.map((link: string) => {
         return `<a href="${link}" target="_blank" rel="noopener noreferrer">${link}</a>`
-      }).join('<br>')
+      }).join('\n')
 
     } catch (e) {
       console.error('Error parsing links and tracks:', e)

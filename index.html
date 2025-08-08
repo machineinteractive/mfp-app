@@ -9,260 +9,15 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#1a1a1a">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
     rel="stylesheet">
-
   <title>mfp;</title>
-  <style>
-    html,
-    body {
-      height: 100vh;
-      margin: 0;
-      padding: 0;
-    }
-
-    .ibm-plex-mono-thin {
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 100;
-      font-style: normal;
-    }
-
-    .ibm-plex-mono-extralight {
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 200;
-      font-style: normal;
-    }
-
-    .ibm-plex-mono-light {
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 300;
-      font-style: normal;
-    }
-
-    .ibm-plex-mono-regular {
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 400;
-      font-style: normal;
-    }
-
-    .ibm-plex-mono-medium {
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 500;
-      font-style: normal;
-    }
-
-    .ibm-plex-mono-semibold {
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 600;
-      font-style: normal;
-    }
-
-    .ibm-plex-mono-bold {
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 700;
-      font-style: normal;
-    }
-
-    .ibm-plex-mono-thin-italic {
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 100;
-      font-style: italic;
-    }
-
-    .ibm-plex-mono-extralight-italic {
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 200;
-      font-style: italic;
-    }
-
-    .ibm-plex-mono-light-italic {
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 300;
-      font-style: italic;
-    }
-
-    .ibm-plex-mono-regular-italic {
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 400;
-      font-style: italic;
-    }
-
-    .ibm-plex-mono-medium-italic {
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 500;
-      font-style: italic;
-    }
-
-    .ibm-plex-mono-semibold-italic {
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 600;
-      font-style: italic;
-    }
-
-    .ibm-plex-mono-bold-italic {
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 700;
-      font-style: italic;
-    }
-
-
-    body {
-      --c-green: #1beb9e;
-      --c-black: #1a1a1a;
-      --c-black-mini-player: #2a2a2a;
-      --h-header-height: 48px;
-
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 400;
-      font-style: normal;
-
-      background-color: var(--c-black);
-      color: var(--c-green);
-    }
-
-    h2 {
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 700;
-      font-style: normal;
-      text-align: left;
-    }
-
-    @media (display-mode: standalone) {
-      body {
-        background-color: var(--c-black);
-      }
-    }
-
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      background-color: var(--c-black);
-      display: flex;
-      flex-direction: row;
-      width: 100vw;
-      height: var(--h-header-height);
-      justify-content: center;
-      align-items: center;
-      justify-content: space-evenly;
-    }
-
-    header :first-child {
-      margin-right: auto;
-      padding-left: 2em;
-    }
-
-    header :last-child {
-      margin-left: auto;
-      padding-right: 2em;
-    }
-
-    #mini-player {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100vw;
-      background-color: var(--c-black-mini-player);
-      display: flex;
-      flex-direction: column;
-      padding: 2em;
-      margin: 0;
-      box-sizing: border-box;
-    }
-
-    #mini-player-controls {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-    }
-
-    #mini-player-duration {
-      padding-bottom: 1em;
-    }
-
-    .player-controls-disabled {
-      filter: grayscale(1);
-      opacity: 0.25;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .content-container {
-      display: flex;
-      padding-top: var(--h-header-height);
-      padding-bottom: 238px;
-      flex-direction: column;
-    }
-
-    .content-container h1,
-    .content-container h2,
-    .content-container h3,
-    .content-container h4 {
-      padding-left: 2em;
-      padding-right: 2em;
-      margin: 0;
-    }
-
-
-    .content-container p {
-      padding-left: 2em;
-      padding-right: 2em;
-      margin: 0;
-    }
-
-    #playlist a,
-    #currently-playing-tracks a,
-    #currently-playing-links a {
-      box-sizing: border-box;
-      color: var(--c-green);
-      text-align: left;
-      min-height: 64px;
-      width: 100vw;
-      padding-left: 2em;
-      padding-right: 2em;
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      word-break: break-all;
-    }
-
-    /* #playlist a:hover,
-    #currently-playing-tracks a:hover,
-    #currently-playing-links a:hover {
-      background-color: var(--c-green);
-      color: var(--c-black);
-    } */
-
-    #about p a {
-      background-color: var(--c-green);
-      color: var(--c-black);
-      text-decoration: none;
-      word-break: break-all;
-    }
-
-    #about p {
-      padding-bottom: 2em;
-      padding-left: 2em;
-      padding-right: 2em;
-      line-height: 2;
-    }
-
-    .normal-hyperlink a {
-      background-color: var(--c-green);
-      color: var(--c-black);
-      text-decoration: none;
-    }
-  </style>
 </head>
 
 <body>
-
   <header>
     <img id="chevron-down" src="chevron_down.svg" style="opacity: 0" alt="Toggle About" width="24" height="24">
     <p class="ibm-plex-mono-semibold">mfp;</p>
@@ -499,7 +254,7 @@
   </div>
 
   <div id="about" class="content-container" style="display: none;">
-    <h2 style="padding-bottom: 1em;">About</h2>
+    <h2 style="padding-bottom: 8px;">About</h2>
 
     <p>
       mfp; is a PWA remix of
@@ -526,8 +281,8 @@
         rel="noopener noreferrer">machineinteractive.com</a>
     </p>
 
-    <h2 style="padding-bottom: 1em;">Currently Playing</h2>
-    <h3 id="currently-playing-title" style="padding-bottom: 1em;"></h3>
+    <h2 style="padding-bottom: 8px;">Currently Playing</h2>
+    <h3 id="currently-playing-title" style="padding-bottom: 8px;"></h3>
     <div id="currently-playing-tracks" class="ibm-plex-mono-light-italic">
       <p>----------</p>
       <p>----------</p>

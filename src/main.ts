@@ -14,8 +14,8 @@ const HIDDEN_CLASS = 'hidden'
 const SEEK_30_SECONDS = 30
 
 const header = document.querySelector<HTMLElement>('header')!
-const chevronDown = document.querySelector<HTMLElement>('#chevron-down')!
-const eye = document.querySelector<HTMLElement>('#eye')!
+const closeAbout = document.querySelector<HTMLElement>('#close-about')!
+const openAbout = document.querySelector<HTMLElement>('#open-about')!
 const playlist = document.querySelector<HTMLElement>('#playlist')!
 const about = document.querySelector<HTMLElement>('#about')!
 const mfpAudioPlayer = document.querySelector<HTMLAudioElement>('#mfp-audio-player')!
@@ -234,13 +234,13 @@ function _toggleAbout() {
   if (!about.style?.display || about.style.display === 'none') {
     about.style.display = 'flex'
     playlist.style.display = 'none'
-    chevronDown.style.opacity = '1'
-    eye.style.opacity = '0'
+    closeAbout.style.opacity = '1'
+    openAbout.style.opacity = '0'
   } else {
     about.style.display = 'none'
     playlist.style.display = 'flex'
-    chevronDown.style.opacity = '0'
-    eye.style.opacity = '1'
+    closeAbout.style.opacity = '0'
+    openAbout.style.opacity = '1'
   }
 }
 

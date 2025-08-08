@@ -164,6 +164,12 @@
       box-sizing: border-box;
     }
 
+    #mini-player p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     #mini-player-controls {
       display: flex;
       flex-direction: row;
@@ -184,9 +190,6 @@
     @media (max-height: 500px) {
       #mini-player p {
         margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
 
       #button-seek-back,
@@ -203,7 +206,6 @@
     }
 
     @media (min-height: 501px) {
-
 
       #button-seek-back,
       #button-seek-forward {

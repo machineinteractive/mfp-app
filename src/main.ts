@@ -9,15 +9,27 @@
 
 const PLAYER_CONTROLS_DISABLED_CLASS = 'player-controls-disabled'
 const HIDDEN_CLASS = 'hidden'
+const SEEK_30_SECONDS = 30
 
+const header = document.querySelector<HTMLElement>('header')!
+const chevronDown = document.querySelector<HTMLElement>('#chevron-down')!
+const eye = document.querySelector<HTMLElement>('#eye')!
+const playlist = document.querySelector<HTMLElement>('#playlist')!
+const about = document.querySelector<HTMLElement>('#about')!
 const mfpAudioPlayer = document.querySelector<HTMLAudioElement>('#mfp-audio-player')!
 const buttonPlay = document.querySelector<HTMLButtonElement>('#button-play')!
 const buttonStop = document.querySelector<HTMLButtonElement>('#button-stop')!
 const buttonSeekBack = document.querySelector<HTMLButtonElement>('#button-seek-back')!
 const buttonSeekForward = document.querySelector<HTMLButtonElement>('#button-seek-forward')!
 
-const title = document.querySelector<HTMLParagraphElement>('#mini-player-title')!
-const duration = document.querySelector<HTMLParagraphElement>('#mini-player-duration')!
+const miniPlayerTitle = document.querySelector<HTMLParagraphElement>('#mini-player-title')!
+const miniPlayerDuration = document.querySelector<HTMLParagraphElement>('#mini-player-duration')!
+
+const currentlyPlayingTitle = document.querySelector<HTMLHeadingElement>('#currently-playing-title')!
+const currentlyPlayingTracks = document.querySelector<HTMLParagraphElement>('#currently-playing-tracks')!
+const currentlyPlayingLinks = document.querySelector<HTMLParagraphElement>('#currently-playing-links')!
+
+
 
 let curLink: HTMLAnchorElement | null = null
 
@@ -77,7 +89,7 @@ function _secondsToTime(seconds: number): string {
 }
 
 mfpAudioPlayer.addEventListener('timeupdate', () => {
-  duration.textContent = _secondsToTime(mfpAudioPlayer.currentTime)
+  miniPlayerDuration.textContent = _secondsToTime(mfpAudioPlayer.currentTime)
   //console.log('Audio player time update:', mfpAudioPlayer.currentTime, duration.textContent)
 })
 
@@ -104,7 +116,7 @@ buttonSeekBack.addEventListener('click', () => {
     return
   }
 
-  const currentTime = Math.floor(mfpAudioPlayer.currentTime - 30)
+  const currentTime = Math.floor(mfpAudioPlayer.currentTime - SEEK_30_SECONDS)
 
   mfpAudioPlayer.currentTime = Math.max(0, currentTime)
 })
@@ -115,7 +127,7 @@ buttonSeekForward.addEventListener('click', () => {
   }
 
   const duration = Math.floor(mfpAudioPlayer.duration - 1)
-  const currentTime = Math.floor(mfpAudioPlayer.currentTime + 30)
+  const currentTime = Math.floor(mfpAudioPlayer.currentTime + SEEK_30_SECONDS)
 
   mfpAudioPlayer.currentTime = Math.min(duration, currentTime)
 })
@@ -143,7 +155,8 @@ function _enableMiniPlayerControls() {
 
 document.addEventListener('click', (event) => {
   const target = event.target as HTMLAnchorElement
-  if (target.tagName === 'A' && target.href) {
+
+  if (target.tagName === 'A' && target.href && target.dataset.tracks) {
     console.log('Link clicked:', target.href)
 
     curLink = target
@@ -151,19 +164,35 @@ document.addEventListener('click', (event) => {
     console.log('curlink: ', curLink)
 
     console.log(target.dataset)
+
+    const titleText = `${target.innerText}`
+
     try {
       const links = JSON.parse(target.dataset.links as string)
       console.log('Links:', links)
       const tracks = JSON.parse(target.dataset.tracks as string)
       console.log('Tracks:', tracks)
+
+      currentlyPlayingTitle.innerHTML = titleText
+      currentlyPlayingTracks.innerHTML = tracks.map((track: string) => {
+
+        const url = `https://www.google.com/search?q=${encodeURIComponent('site:discogs.com ')}${encodeURIComponent(track)}`
+
+        return `<a href="${url}" target="_blank" rel="noopener noreferrer">${track}</a>`
+      }).join('<br>')
+
+      currentlyPlayingLinks.innerHTML = links.map((link: string) => {
+        return `<a href="${link}" target="_blank" rel="noopener noreferrer">${link}</a>`
+      }).join('<br>')
+
     } catch (e) {
       console.error('Error parsing links and tracks:', e)
     }
 
-    const titleText = `${target.innerText}`
 
-    title.textContent = titleText
-    duration.textContent = '00:00:00'
+
+    miniPlayerTitle.textContent = titleText
+    miniPlayerDuration.textContent = '00:00:00'
 
     mfpAudioPlayer.src = target.href
     mfpAudioPlayer.load()
@@ -200,3 +229,27 @@ if (hasMediaSession()) {
     showMiniPlayButton()
   })
 }
+
+function _toggleAbout() {
+  if (!about.style?.display || about.style.display === 'none') {
+    about.style.display = 'flex'
+    playlist.style.display = 'none'
+    chevronDown.style.opacity = '1'
+    eye.style.opacity = '0'
+  } else {
+    about.style.display = 'none'
+    playlist.style.display = 'flex'
+    chevronDown.style.opacity = '0'
+    eye.style.opacity = '1'
+  }
+}
+
+header.addEventListener('click', () => {
+  console.log('Header clicked: ', about.style.display || 'none')
+  _toggleAbout()
+})
+
+miniPlayerTitle.addEventListener('click', () => {
+  console.log('Mini player title clicked: ', about.style.display || 'none')
+  _toggleAbout()
+})

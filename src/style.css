@@ -157,17 +157,19 @@
       background-color: var(--c-black-mini-player);
       display: flex;
       flex-direction: column;
-      /* align-items: center; */
       justify-content: space-evenly;
       padding: var(--padding-16);
       margin: 0;
       box-sizing: border-box;
+      /* font-size: 0.8em; */
+      font-size: 1em;
     }
 
     #mini-player p {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      margin: 0;
     }
 
     #mini-player-controls {
@@ -175,7 +177,6 @@
       flex-direction: row;
       justify-content: space-evenly;
       align-items: center;
-
     }
 
     @media (max-height: 500px) {
@@ -258,13 +259,6 @@
       text-decoration: none;
       word-break: break-all;
     }
-
-    /* #playlist a:hover,
-    #currently-playing-tracks a:hover,
-    #currently-playing-links a:hover {
-      background-color: var(--c-green);
-      color: var(--c-black);
-    } */
 
     #about p a {
       background-color: var(--c-green);

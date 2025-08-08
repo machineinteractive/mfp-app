@@ -178,14 +178,6 @@
 
     }
 
-    @media (max-width: 360px) {
-      #mini-player p {
-        margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
 
     @media (max-height: 500px) {
       #mini-player p {

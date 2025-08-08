@@ -1,20 +1,98 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/mfp.svg" sizes="any" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#1a1a1a">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;display=swap"
     rel="stylesheet">
   <title>mfp;</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2048-2732.png"
+    media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2732-2048.png"
+    media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1668-2388.png"
+    media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2388-1668.png"
+    media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1536-2048.png"
+    media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2048-1536.png"
+    media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1640-2360.png"
+    media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2360-1640.png"
+    media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1668-2224.png"
+    media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2224-1668.png"
+    media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1620-2160.png"
+    media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2160-1620.png"
+    media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1488-2266.png"
+    media="(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2266-1488.png"
+    media="(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1320-2868.png"
+    media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2868-1320.png"
+    media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1206-2622.png"
+    media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2622-1206.png"
+    media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1290-2796.png"
+    media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2796-1290.png"
+    media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1179-2556.png"
+    media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2556-1179.png"
+    media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1170-2532.png"
+    media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2532-1170.png"
+    media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1284-2778.png"
+    media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2778-1284.png"
+    media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1125-2436.png"
+    media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2436-1125.png"
+    media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1242-2688.png"
+    media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2688-1242.png"
+    media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-828-1792.png"
+    media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1792-828.png"
+    media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1242-2208.png"
+    media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-2208-1242.png"
+    media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-750-1334.png"
+    media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1334-750.png"
+    media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-640-1136.png"
+    media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1136-640.png"
+    media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+
 </head>
 
 <body>
@@ -23,7 +101,6 @@
     <p class="ibm-plex-mono-semibold">mfp;</p>
     <img id="open-about" src="expand.svg" alt="Open About" width="24" height="24">
   </header>
-
   <div id="playlist" class="content-container">
     {% for episode in episodes %}
     <a data-duration="{{ episode.itunes_duration | e }}" data-links="{{ episode.links | e }}"
@@ -31,50 +108,38 @@
       }})</a>
     {% endfor %}
   </div>
-
   <div id="about" class="content-container" style="display: none;">
     <h2 style="padding-bottom: 8px;">About</h2>
-
     <p>
       mfp; is a PWA remix of
       <a href="https://musicforprogramming.net" target="_blank" rel="noopener noreferrer">
         musicforprogramming.net</a>.
       All the episode data comes from the <b>musicforprogramming.net</b> RSS feed.
     </p>
-
     <p>Thank you <a href="https://datassette.net/" target="_blank" rel="noopener noreferrer">Datassette</a> for all
       the years of amazing music!
     </p>
-
     <p>Details on how to support <a href="https://datassette.net/" target="_blank"
         rel="noopener noreferrer">Datassette</a> and the episode artists can be found here:
       <a href="https://musicforprogramming.net/credits" target="_blank"
         rel="noopener noreferrer">https://musicforprogramming.net/credits</a>
     </p>
-
     <p>NOTE: This app is not affiliated with <b>musicforprogramming.net</b></p>
-
     <p>
       mfp; app created by <a href="https://machineinteractive.com" target="_blank"
         rel="noopener noreferrer">machineinteractive.com</a>
     </p>
-
     <h2 style="padding-bottom: 8px;">Currently Playing</h2>
-
     <h3 id="currently-playing-title" style="padding-bottom: 8px;">
       ----------
     </h3>
-
     <div id="currently-playing-tracks" class="ibm-plex-mono-light-italic">
       <p>----------</p>
     </div>
-
     <div id="currently-playing-links" class="ibm-plex-mono-semibold-italic">
       <p>----------</p>
     </div>
-
   </div>
-
   <div id="mini-player">
     <div id="mini-player-info">
       <div class="marquee-container">
@@ -89,11 +154,8 @@
       <img id="button-seek-forward" class="player-controls-disabled" src="seek_forward.svg" alt="Seek back 30s">
     </div>
   </div>
-
   <audio id="mfp-audio-player"></audio>
-
   <script type="module" src="/src/main.ts"></script>
-
 </body>
 
 </html>

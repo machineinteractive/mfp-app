@@ -246,7 +246,7 @@
     #currently-playing-tracks a,
     #currently-playing-links a {
       box-sizing: border-box;
-      color: var(--c-green);
+      color: inherit;
       text-align: left;
       min-height: var(--a-min-height);
       width: 100vw;

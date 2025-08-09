@@ -110,8 +110,12 @@
   <div id="playlist" class="content-container">
     {% for episode in episodes %}
     <a data-duration="{{ episode.itunes_duration | e }}" data-links="{{ episode.links | e }}"
-      data-tracks="{{ episode.tracks | e }}" href="{{ episode.guid }}">{{ episode.title }} ({{ episode.itunes_duration
-      }})</a>
+      data-tracks="{{ episode.tracks | e }}" href="{{ episode.guid }}">
+      <div>
+        {{ episode.title }}<br>
+        [{{ episode.itunes_duration}}]
+      </div>
+    </a>
     {% endfor %}
   </div>
   <div id="about" class="content-container" style="display: none;">

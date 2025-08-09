@@ -149,7 +149,12 @@ function _enableMiniPlayerControls() {
 }
 
 document.addEventListener('click', (event) => {
-  const target = event.target as HTMLAnchorElement
+
+  const element = event.target as HTMLElement
+
+  const target = (element.tagName === 'DIV'
+    && element.parentElement?.tagName === 'A') ? element.parentElement as HTMLAnchorElement
+    : element as HTMLAnchorElement
 
   if (target.tagName === 'A' && target.href && target.dataset.tracks) {
     console.log('Link clicked:', target.href)

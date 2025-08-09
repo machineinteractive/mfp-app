@@ -22,12 +22,12 @@ The PWA can be found here:
 
 ## Install
 
-Requirements
+### Requirements
 
 - Node.js 22.x
 - Python 3.13.x
 
-1. Create Python virtual environment and install Python dependencies
+### 1. Create Python virtual environment and install Python dependencies
 
 ```bash
 cd /path/to/mfp-app
@@ -36,7 +36,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-2. Install Node dependencies
+### 2. Install Node dependencies
 
 ```bash
 cd /path/to/mfp-app

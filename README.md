@@ -37,10 +37,10 @@ soruce .venv/bin/activate
 npm run dev
 ```
 
-## Fetch latest musicforprogramming episode and rebuild the index.html and espisodes.json
+## Fetch latest musicforprogramming episodes and rebuild the index.html and espisodes.json
 
 ```bash
-npm run workflow-build-mfp
+npm run mfp-fetch-and-build
 ```
 
 ## Rebuild PWA assets

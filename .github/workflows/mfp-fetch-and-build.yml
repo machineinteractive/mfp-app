@@ -1,4 +1,4 @@
-name: "Build mfp"
+name: "Fetch Episodes and Build mfp-app"
 
 on:
   schedule:
@@ -21,7 +21,7 @@ jobs:
           cache: "pip"
       - name: Install Python dependencies
         run: pip install -r requirements.txt
-      - name: Build mfp public/index.html and public/episodes.json
+      - name: Fetching episodes and building index.html and episodes.json
         run: |
-          python build-mfp.py
-          bash commit-build.sh
+          python mfp-fetch-and-build.py
+          bash github-commit-build.sh

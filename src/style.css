@@ -161,8 +161,6 @@
       padding: var(--padding-16);
       margin: 0;
       box-sizing: border-box;
-      /* font-size: 0.8em; */
-      font-size: 1em;
     }
 
     #mini-player p {

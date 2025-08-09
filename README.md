@@ -1,6 +1,6 @@
 # WIP
 
-![mfp;](public/mfp.png)
+![mfp;](public/screenshot.png)
 
 ## About mfp;
 

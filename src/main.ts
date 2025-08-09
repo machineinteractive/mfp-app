@@ -117,21 +117,14 @@ buttonSeekBack.addEventListener('click', () => {
   if (buttonSeekBack.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
-
-  const currentTime = Math.floor(mfpAudioPlayer.currentTime - SEEK_30_SECONDS)
-
-  mfpAudioPlayer.currentTime = Math.max(0, currentTime)
+  _seekBackward(SEEK_30_SECONDS)
 })
 
 buttonSeekForward.addEventListener('click', () => {
   if (buttonSeekForward.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
-
-  const duration = Math.floor(mfpAudioPlayer.duration - 1)
-  const currentTime = Math.floor(mfpAudioPlayer.currentTime + SEEK_30_SECONDS)
-
-  mfpAudioPlayer.currentTime = Math.min(duration, currentTime)
+  _seekForward(SEEK_30_SECONDS)
 })
 
 function _enableSeekButtons() {
@@ -218,7 +211,28 @@ document.addEventListener("visibilitychange", () => {
   console.log(`visibility change: ${document.visibilityState}`)
 })
 
+
+function _seekBackward(offset: number) {
+  const currentTime = Math.floor(mfpAudioPlayer.currentTime - offset)
+  console.log('Seeking backward:', currentTime, ' offset:', offset)
+  mfpAudioPlayer.currentTime = Math.max(0, currentTime)
+}
+function _seekForward(offset: number) {
+  const duration = Math.floor(mfpAudioPlayer.duration - 1)
+  const currentTime = Math.floor(mfpAudioPlayer.currentTime + offset)
+  console.log('Seeking forward:', currentTime, ' offset:', offset, ' duration:', duration)
+  mfpAudioPlayer.currentTime = Math.min(duration, currentTime)
+}
+
 if (hasMediaSession()) {
+  function _updatePositionState() {
+    navigator.mediaSession.setPositionState({
+      duration: mfpAudioPlayer.duration,
+      playbackRate: mfpAudioPlayer.playbackRate,
+      position: mfpAudioPlayer.currentTime,
+    })
+  }
+
   navigator.mediaSession.setActionHandler('play', async () => {
     await mfpAudioPlayer.play()
     showMiniStopButton()
@@ -227,6 +241,33 @@ if (hasMediaSession()) {
   navigator.mediaSession.setActionHandler('pause', async () => {
     mfpAudioPlayer.pause()
     showMiniPlayButton()
+  })
+
+  navigator.mediaSession.setActionHandler('stop', async () => {
+    mfpAudioPlayer.pause()
+    showMiniPlayButton()
+  })
+
+  navigator.mediaSession.setActionHandler('seekbackward', (details) => {
+    const skipTime = details.seekOffset || SEEK_30_SECONDS
+    _seekBackward(skipTime)
+    _updatePositionState()
+  })
+
+  navigator.mediaSession.setActionHandler('seekforward', (details) => {
+    const skipTime = details.seekOffset || SEEK_30_SECONDS
+    _seekForward(skipTime)
+    _updatePositionState()
+  })
+
+  navigator.mediaSession.setActionHandler('seekto', (details) => {
+    const skipTime = details.seekTime || -1
+    if (skipTime < 0 || skipTime > mfpAudioPlayer.duration) {
+      console.warn('Invalid seek time:', skipTime)
+      return
+    }
+    console.log('Seeking to:', skipTime)
+    mfpAudioPlayer.currentTime = Math.floor(skipTime)
   })
 }
 

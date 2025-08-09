@@ -1,8 +1,8 @@
-# WIP
+# mfp;
 
 ![mfp;](public/screenshot.png)
 
-## About mfp;
+## About
 
 mfp; is a PWA remix of [musicforprogramming.net](https://musicforprogramming.net).
 
@@ -18,7 +18,7 @@ NOTE: This app is not affiliated with [musicforprogramming.net](https://musicfor
 
 The PWA can be found here:
 
-https://mfp-app.pages.dev/
+[https://mfp-app.pages.dev/](https://mfp-app.pages.dev/)
 
 ## Install
 
@@ -37,18 +37,21 @@ soruce .venv/bin/activate
 npm run dev
 ```
 
-### Fetch latest musicforprogramming episode and rebuild the index.html and espisodes.json
+## Fetch latest musicforprogramming episode and rebuild the index.html and espisodes.json
 
 ```bash
 npm run workflow-build-mfp
 ```
 
-### Rebuild PWA assets
+## Rebuild PWA assets
 
 ```bash
-npm run generate-pwa-assets
+# build icons
+npm run icons
+# build iOS splashscreens
+npm run splash
 ```
 
-### Note
+## Note
 
-I strongly suggest using VSCode for editing and managing development environment.
+I strongly suggest using VSCode for editing and managing the development environment.

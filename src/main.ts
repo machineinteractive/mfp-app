@@ -187,8 +187,6 @@ document.addEventListener('click', (event) => {
       console.error('Error parsing links and tracks:', e)
     }
 
-
-
     miniPlayerTitle.textContent = titleText
     miniPlayerDuration.textContent = '00:00:00'
 

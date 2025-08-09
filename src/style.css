@@ -223,7 +223,7 @@
     .content-container {
       display: flex;
       padding-top: var(--h-header-height);
-      padding-bottom: 238px;
+      padding-bottom: calc(25vh + (var(--padding-16) * 4));
       flex-direction: column;
     }
 

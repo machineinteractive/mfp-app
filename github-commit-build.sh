@@ -7,5 +7,5 @@ if [ "$?" -eq 1 ]; then
   git commit -m "Update mfp-app-pwa playlist with latest content."
   git push
 else
-  echo "Changes not detected. Skipping..."
+  echo "No changes detected. Skipping update..."
 fi

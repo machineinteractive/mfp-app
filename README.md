@@ -18,7 +18,7 @@ NOTE: This app is not affiliated with [musicforprogramming.net](https://musicfor
 
 The PWA can be found here:
 
-[https://mfp-app.pages.dev/](https://mfp-app.pages.dev/)
+[https://mfp-app-pwa.pages.dev/](https://mfp-app-pwa.pages.dev/)
 
 ## Install
 

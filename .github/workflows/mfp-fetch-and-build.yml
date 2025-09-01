@@ -1,4 +1,4 @@
-name: "Fetch Episodes and Build mfp-app"
+name: "Fetch Episodes and Build mfp-app-pwa"
 
 on:
   schedule:

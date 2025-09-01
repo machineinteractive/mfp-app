@@ -4,7 +4,7 @@ if [ "$?" -eq 1 ]; then
   git config user.name "github-actions[bot]"
   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
   git add .
-  git commit -m "Update mfp-app playlist with latest content."
+  git commit -m "Update mfp-app-pwa playlist with latest content."
   git push
 else
   echo "Changes not detected. Skipping..."

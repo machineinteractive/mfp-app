@@ -30,7 +30,7 @@ The PWA can be found here:
 ### 1. Create Python virtual environment and install Python dependencies
 
 ```bash
-cd /path/to/mfp-app
+cd /path/to/mfp-app-pwa
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -39,7 +39,7 @@ pip install -r requirements.txt
 ### 2. Install Node dependencies
 
 ```bash
-cd /path/to/mfp-app
+cd /path/to/mfp-app-pwa
 npm install
 ```
 

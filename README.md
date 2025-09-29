@@ -18,7 +18,7 @@ NOTE: This app is not affiliated with [musicforprogramming.net](https://musicfor
 
 The PWA can be found here:
 
-[https://mfp-app-pwa.pages.dev/](https://mfp-app-pwa.pages.dev/)
+[https://mfp-app.pages.dev/](https://mfp-app.pages.dev/)
 
 ## Install
 
@@ -30,7 +30,7 @@ The PWA can be found here:
 ### 1. Create Python virtual environment and install Python dependencies
 
 ```bash
-cd /path/to/mfp-app-pwa
+cd /path/to/mfp-app
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -39,7 +39,7 @@ pip install -r requirements.txt
 ### 2. Install Node dependencies
 
 ```bash
-cd /path/to/mfp-app-pwa
+cd /path/to/mfp-app
 npm install
 ```
 
@@ -50,7 +50,7 @@ soruce .venv/bin/activate
 npm run dev
 ```
 
-## Fetch latest musicforprogramming episodes and rebuild the index.html and espisodes.json
+## Fetch latest musicforprogramming episodes and rebuild the index.html and episodes.json
 
 ```bash
 npm run mfp-fetch-and-build

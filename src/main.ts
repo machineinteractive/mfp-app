@@ -14,8 +14,8 @@ const HIDDEN_CLASS = 'hidden'
 const SEEK_30_SECONDS = 30
 
 const header = document.querySelector<HTMLElement>('header')!
-const closeAbout = document.querySelector<HTMLElement>('#close-about')!
-const openAbout = document.querySelector<HTMLElement>('#open-about')!
+const aboutButton = document.querySelector<HTMLImageElement>('#about-button')!
+const closeButton = document.querySelector<HTMLImageElement>('#close-button')!
 const playlist = document.querySelector<HTMLElement>('#playlist')!
 const about = document.querySelector<HTMLElement>('#about')!
 const mfpAudioPlayer = document.querySelector<HTMLAudioElement>('#mfp-audio-player')!
@@ -30,7 +30,6 @@ const miniPlayerDuration = document.querySelector<HTMLParagraphElement>('#mini-p
 const currentlyPlayingTitle = document.querySelector<HTMLHeadingElement>('#currently-playing-title')!
 const currentlyPlayingTracks = document.querySelector<HTMLParagraphElement>('#currently-playing-tracks')!
 const currentlyPlayingLinks = document.querySelector<HTMLParagraphElement>('#currently-playing-links')!
-
 
 
 let curLink: HTMLAnchorElement | null = null
@@ -275,16 +274,15 @@ if (hasMediaSession()) {
 }
 
 function _toggleAbout() {
-  if (!about.style?.display || about.style.display === 'none') {
-    about.style.display = 'flex'
-    playlist.style.display = 'none'
-    closeAbout.style.opacity = '1'
-    openAbout.style.opacity = '0'
+  about.classList.toggle('hidden')
+  playlist.classList.toggle('hidden')
+  aboutButton.classList.toggle('hidden')
+  closeButton.classList.toggle('hidden')
+  // prevent body from scrolling when about is open
+  if (document.body.style.overflow === 'hidden') {
+    document.body.style.overflow = 'auto'
   } else {
-    about.style.display = 'none'
-    playlist.style.display = 'flex'
-    closeAbout.style.opacity = '0'
-    openAbout.style.opacity = '1'
+    document.body.style.overflow = 'hidden'
   }
 }
 

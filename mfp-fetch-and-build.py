@@ -18,8 +18,13 @@ class Episode:
     itunes_duration: str
 
 def main():
-    episodes = []
 
+    with open("package.json", "r") as f:
+        package_data = json.load(f)
+        app_version = package_data.get("version", "0.0.0")
+        print("App Version:", app_version)
+
+    episodes = []
 
     #
     # always fetch RSS feed to get the latest episodes
@@ -126,7 +131,7 @@ def main():
     environment = Environment(loader=FileSystemLoader("templates/"), autoescape=select_autoescape())
     template = environment.get_template("index.html")
 
-    output = template.render(episodes=episodes)
+    output = template.render(app_version=app_version, episodes=episodes)
 
     with open("index.html", "w") as f:
         f.write(output)

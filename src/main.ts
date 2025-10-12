@@ -279,11 +279,11 @@ function _toggleAbout() {
   aboutButton.classList.toggle('hidden')
   closeButton.classList.toggle('hidden')
   // prevent body from scrolling when about is open
-  if (document.body.style.overflow === 'hidden') {
-    document.body.style.overflow = 'auto'
-  } else {
-    document.body.style.overflow = 'hidden'
-  }
+  // if (document.body.style.overflow === 'hidden') {
+  //   document.body.style.overflow = 'auto'
+  // } else {
+  //   document.body.style.overflow = 'hidden'
+  // }
 }
 
 header.addEventListener('click', () => {

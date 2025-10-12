@@ -102,70 +102,79 @@
 </head>
 
 <body>
-  <header>
-    <img src="about.svg" alt="Info" width="24" height="24" style="opacity: 0;">
-    <p class="ibm-plex-mono-semibold">mfp;</p>
-    <div class="button-container">
-      <img id="about-button" src="about.svg" alt="About Button" width="24" height="24">
-      <img id="close-button" src="close.svg" alt="Close About Button" width="24" height="24" class="hidden">
-    </div>
-  </header>
-  <div id="playlist" class="content-container flex">
-    {% for episode in episodes %}
-    <a data-duration="{{ episode.itunes_duration | e }}" data-links="{{ episode.links | e }}"
-      data-tracks="{{ episode.tracks | e }}" href="{{ episode.guid }}">
-      <div>
-        {{ episode.title }}<br>
-        [{{ episode.itunes_duration}}]
+  <div class="layout-container">
+    <header>
+      <div class="header-container">
+        <img src="about.svg" alt="Info" width="24" height="24" style="opacity: 0;">
+        <p class="ibm-plex-mono-semibold">mfp;</p>
+        <div class="button-container">
+          <img id="about-button" src="about.svg" alt="About Button" width="24" height="24">
+          <img id="close-button" src="close.svg" alt="Close About Button" width="24" height="24" class="hidden">
+        </div>
       </div>
-    </a>
-    {% endfor %}
-  </div>
-  <div id="about" class="content-container flex hidden">
-    <div class="about-content">
-      <h2>About</h2>
-      <p>
-        mfp; is a PWA remix of
-        <a href="https://musicforprogramming.net" target="_blank" rel="noopener noreferrer">
-          musicforprogramming.net</a>.
-        All the episode data comes from the <b>musicforprogramming.net</b> RSS feed.
-      </p>
-      <p>Thank you <a href="https://datassette.net/" target="_blank" rel="noopener noreferrer">Datassette</a> for all
-        the years of amazing music!
-      </p>
-      <p>Details on how to support <a href="https://datassette.net/" target="_blank"
-          rel="noopener noreferrer">Datassette</a> and the episode artists can be found here:
-        <a href="https://musicforprogramming.net/credits" target="_blank"
-          rel="noopener noreferrer">https://musicforprogramming.net/credits</a>
-      </p>
-      <p>NOTE: This app is not affiliated with <b>musicforprogramming.net</b></p>
-      <p>
-        mfp; app created by <a href="https://machineinteractive.com" target="_blank"
-          rel="noopener noreferrer">machineinteractive.com</a>
-      </p>
-      <h2 style="padding-bottom: 8px;">Currently Playing</h2>
-      <h3 id="currently-playing-title" style="padding-bottom: 8px;">
-        ----------
-      </h3>
-      <div id="currently-playing-tracks" class="ibm-plex-mono-light-italic">
-        <p>----------</p>
+    </header>
+    <main>
+      <div id="playlist" class="content-container">
+        {% for episode in episodes %}
+        <a data-duration="{{ episode.itunes_duration | e }}" data-links="{{ episode.links | e }}"
+          data-tracks="{{ episode.tracks | e }}" href="{{ episode.guid }}">
+          <div>
+            {{ episode.title }}<br>
+            [{{ episode.itunes_duration}}]
+          </div>
+        </a>
+        {% endfor %}
       </div>
-      <div id="currently-playing-links" class="ibm-plex-mono-semibold-italic">
-        <p>----------</p>
+      <div id="about" class="content-container hidden">
+        <div class="about-content">
+          <h2>About</h2>
+          <p>
+            mfp; is a PWA remix of
+            <a href="https://musicforprogramming.net" target="_blank" rel="noopener noreferrer">
+              musicforprogramming.net</a>.
+            All the episode data comes from the <b>musicforprogramming.net</b> RSS feed.
+          </p>
+          <p>Thank you <a href="https://datassette.net/" target="_blank" rel="noopener noreferrer">Datassette</a> for
+            all
+            the years of amazing music!
+          </p>
+          <p>Details on how to support <a href="https://datassette.net/" target="_blank"
+              rel="noopener noreferrer">Datassette</a> and the episode artists can be found here:
+            <a href="https://musicforprogramming.net/credits" target="_blank"
+              rel="noopener noreferrer">https://musicforprogramming.net/credits</a>
+          </p>
+          <p>NOTE: This app is not affiliated with <b>musicforprogramming.net</b></p>
+          <p>
+            mfp; app created by <a href="https://machineinteractive.com" target="_blank"
+              rel="noopener noreferrer">machineinteractive.com</a>
+          </p>
+          <h2 style="padding-bottom: 8px;">Currently Playing</h2>
+          <h3 id="currently-playing-title" style="padding-bottom: 8px;">
+            ----------
+          </h3>
+          <div id="currently-playing-tracks" class="ibm-plex-mono-light-italic">
+            <p>----------</p>
+          </div>
+          <div id="currently-playing-links" class="ibm-plex-mono-semibold-italic">
+            <p>----------</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div id="mini-player">
-    <div id="mini-player-info">
-      <p id="mini-player-title" class="plex-mono-semibold">---------</p>
-      <p id="mini-player-duration">00:00:00</p>
-    </div>
-    <div id="mini-player-controls">
-      <img id="button-seek-back" class="player-controls-disabled" src="seek_back.svg" alt="Seek back 30s">
-      <img id="button-play" class="player-controls-disabled" src="play.svg" alt="Play">
-      <img id="button-stop" class="hidden" src="stop.svg" alt="Stop">
-      <img id="button-seek-forward" class="player-controls-disabled" src="seek_forward.svg" alt="Seek back 30s">
-    </div>
+    </main>
+    <footer>
+      <div id="mini-player">
+        <div id="mini-player-info">
+          <p id="mini-player-title" class="plex-mono-semibold">---------</p>
+          <p id="mini-player-duration">00:00:00</p>
+        </div>
+        <div id="mini-player-controls">
+          <img id="button-seek-back" class="player-controls-disabled" src="seek_back.svg" alt="Seek back 30s">
+          <img id="button-play" class="player-controls-disabled" src="play.svg" alt="Play">
+          <img id="button-stop" class="hidden" src="stop.svg" alt="Stop">
+          <img id="button-seek-forward" class="player-controls-disabled" src="seek_forward.svg" alt="Seek back 30s">
+        </div>
+      </div>
+    </footer>
   </div>
   <audio id="mfp-audio-player"></audio>
   <script type="module" src="/src/main.ts"></script>

@@ -7,6 +7,7 @@
       height: 100vh;
       margin: 0;
       padding: 0;
+      overflow: hidden;
     }
 
     .ibm-plex-mono-thin {
@@ -128,35 +129,38 @@
       }
     }
 
-
     header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      background-color: var(--c-black);
-      display: flex;
-      flex-direction: row;
       width: 100vw;
       height: var(--h-header-height);
-      align-items: center;
-      justify-content: space-evenly;
+      box-sizing: border-box;
     }
 
-    header> :first-child {
+    .header-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+      box-sizing: border-box;
+    }
+
+    .header-container> :first-child {
       margin-right: auto;
       padding-left: var(--padding-16);
     }
 
-    header> :last-child {
+    .header-container> :last-child {
       margin-left: auto;
       padding-right: var(--padding-16);
     }
 
+    main {
+      flex-grow: 1;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+
     #mini-player {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100vw;
       background-color: var(--c-black-mini-player);
       display: flex;
       flex-direction: column;
@@ -213,26 +217,25 @@
       }
     }
 
+    .layout-container {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      flex-direction: column;
+    }
 
     .player-controls-disabled {
       filter: grayscale(1);
       opacity: 0.25;
     }
 
-    .flex {
-      display: flex;
-    }
-
     .hidden {
       display: none;
+      overflow: hidden;
     }
 
     .content-container {
-      padding-top: var(--h-header-height);
-      padding-bottom: calc(var(--mini-player-base-size) + (var(--padding-16) * 4));
-      flex-direction: column;
-      overflow-y: scroll;
-      background-color: var(--c-debug);
+      padding-bottom: calc(var(--padding-16) * 2);
     }
 
     .content-container h1,
@@ -243,15 +246,9 @@
       padding-right: var(--padding-16);
     }
 
-
     .content-container p {
       padding: 0;
       margin: 0;
-
-    }
-
-    #playlist {
-      overflow: hidden;
     }
 
     #playlist a,
@@ -270,28 +267,11 @@
       word-break: break-all;
     }
 
-    #about {
-      position: fixed;
-      top: var(--h-header-height);
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 100;
-      overflow: hidden;
-      padding-top: 0;
-    }
-
     #about h2 {
       padding-bottom: var(--padding-16);
       padding-left: var(--padding-16);
       padding-right: var(--padding-16);
       margin: 0;
-    }
-
-    .about-content {
-      overflow: auto;
-      overscroll-behavior: contain;
-      padding-bottom: calc(var(--mini-player-base-size) + (var(--padding-16) * 4));
     }
 
     #about p a {
@@ -306,10 +286,6 @@
       padding-left: var(--padding-16);
       padding-right: var(--padding-16);
       line-height: 1.5;
-    }
-
-    #about-footer {
-      height: calc(var(--h-header-height) + var(--padding-16));
     }
 
     .normal-hyperlink a {

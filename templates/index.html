@@ -102,19 +102,19 @@
 </head>
 
 <body>
-  <div class="layout-container">
+  <div class="app-container">
     <header>
-      <div class="header-container">
-        <img src="about.svg" alt="Info" width="24" height="24" style="opacity: 0;">
+      <div class="header-nav">
+        <div style="display: inline; width:24px; height: 24px;"></div>
         <p class="ibm-plex-mono-semibold">mfp;</p>
-        <div class="button-container">
-          <img id="about-button" src="about.svg" alt="About Button" width="24" height="24">
-          <img id="close-button" src="close.svg" alt="Close About Button" width="24" height="24" class="hidden">
+        <div class="stacked-button-container">
+          <img id="about-button" src="about.svg" alt="About Screen Open Button" width="24" height="24">
+          <img id="close-button" src="close.svg" alt="About Screen Close Button" width="24" height="24" class="hidden">
         </div>
       </div>
     </header>
     <main>
-      <div id="playlist" class="content-container">
+      <div id="playlist" class="screen">
         {% for episode in episodes %}
         <a data-duration="{{ episode.itunes_duration | e }}" data-links="{{ episode.links | e }}"
           data-tracks="{{ episode.tracks | e }}" href="{{ episode.guid }}">
@@ -125,39 +125,37 @@
         </a>
         {% endfor %}
       </div>
-      <div id="about" class="content-container hidden">
-        <div class="about-content">
-          <h2>About</h2>
-          <p>
-            mfp; is a PWA remix of
-            <a href="https://musicforprogramming.net" target="_blank" rel="noopener noreferrer">
-              musicforprogramming.net</a>.
-            All the episode data comes from the <b>musicforprogramming.net</b> RSS feed.
-          </p>
-          <p>Thank you <a href="https://datassette.net/" target="_blank" rel="noopener noreferrer">Datassette</a> for
-            all
-            the years of amazing music!
-          </p>
-          <p>Details on how to support <a href="https://datassette.net/" target="_blank"
-              rel="noopener noreferrer">Datassette</a> and the episode artists can be found here:
-            <a href="https://musicforprogramming.net/credits" target="_blank"
-              rel="noopener noreferrer">https://musicforprogramming.net/credits</a>
-          </p>
-          <p>NOTE: This app is not affiliated with <b>musicforprogramming.net</b></p>
-          <p>
-            mfp; app created by <a href="https://machineinteractive.com" target="_blank"
-              rel="noopener noreferrer">machineinteractive.com</a>
-          </p>
-          <h2 style="padding-bottom: 8px;">Currently Playing</h2>
-          <h3 id="currently-playing-title" style="padding-bottom: 8px;">
-            ----------
-          </h3>
-          <div id="currently-playing-tracks" class="ibm-plex-mono-light-italic">
-            <p>----------</p>
-          </div>
-          <div id="currently-playing-links" class="ibm-plex-mono-semibold-italic">
-            <p>----------</p>
-          </div>
+      <div id="about" class="screen hidden">
+        <h2>About</h2>
+        <p>
+          mfp; is a PWA remix of
+          <a href="https://musicforprogramming.net" target="_blank" rel="noopener noreferrer">
+            musicforprogramming.net</a>.
+          All the episode data comes from the <b>musicforprogramming.net</b> RSS feed.
+        </p>
+        <p>Thank you <a href="https://datassette.net/" target="_blank" rel="noopener noreferrer">Datassette</a> for
+          all
+          the years of amazing music!
+        </p>
+        <p>Details on how to support <a href="https://datassette.net/" target="_blank"
+            rel="noopener noreferrer">Datassette</a> and the episode artists can be found here:
+          <a href="https://musicforprogramming.net/credits" target="_blank"
+            rel="noopener noreferrer">https://musicforprogramming.net/credits</a>
+        </p>
+        <p>NOTE: This app is not affiliated with <b>musicforprogramming.net</b></p>
+        <p>
+          mfp; app created by <a href="https://machineinteractive.com" target="_blank"
+            rel="noopener noreferrer">machineinteractive.com</a>
+        </p>
+        <h2 style="padding-bottom: 8px;">Currently Playing</h2>
+        <h3 id="currently-playing-title" style="padding-bottom: 8px;">
+          ----------
+        </h3>
+        <div id="currently-playing-tracks" class="ibm-plex-mono-light-italic">
+          <p>----------</p>
+        </div>
+        <div id="currently-playing-links" class="ibm-plex-mono-semibold-italic">
+          <p>----------</p>
         </div>
       </div>
     </main>

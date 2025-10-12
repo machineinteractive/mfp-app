@@ -16,8 +16,9 @@ const SEEK_30_SECONDS = 30
 const header = document.querySelector<HTMLElement>('header')!
 const aboutButton = document.querySelector<HTMLImageElement>('#about-button')!
 const closeButton = document.querySelector<HTMLImageElement>('#close-button')!
-const playlist = document.querySelector<HTMLElement>('#playlist')!
-const about = document.querySelector<HTMLElement>('#about')!
+const playlist = document.querySelector<HTMLDivElement>('#playlist')!
+const about = document.querySelector<HTMLDivElement>('#about')!
+const main = document.querySelector<HTMLElement>('main')!
 const mfpAudioPlayer = document.querySelector<HTMLAudioElement>('#mfp-audio-player')!
 const buttonPlay = document.querySelector<HTMLButtonElement>('#button-play')!
 const buttonStop = document.querySelector<HTMLButtonElement>('#button-stop')!
@@ -273,25 +274,58 @@ if (hasMediaSession()) {
   })
 }
 
+
 function _toggleAbout() {
-  about.classList.toggle('hidden')
-  playlist.classList.toggle('hidden')
-  aboutButton.classList.toggle('hidden')
-  closeButton.classList.toggle('hidden')
-  // prevent body from scrolling when about is open
-  // if (document.body.style.overflow === 'hidden') {
-  //   document.body.style.overflow = 'auto'
-  // } else {
-  //   document.body.style.overflow = 'hidden'
-  // }
+
+  let restoreAboutScrollPos = false
+  let restorePlaylistScrollPos = false
+
+  if (about.classList.contains('hidden')) {
+    restoreAboutScrollPos = true
+  } else {
+    restorePlaylistScrollPos = true
+  }
+
+  requestAnimationFrame(() => {
+    about.classList.toggle('hidden')
+    playlist.classList.toggle('hidden')
+    aboutButton.classList.toggle('hidden')
+    closeButton.classList.toggle('hidden')
+  })
+
+  if (restoreAboutScrollPos) {
+    requestAnimationFrame(() => {
+      main.scrollTo({
+        top: curAboutScrollTop, left: 0, behavior: 'instant'
+      })
+    })
+  }
+
+  if (restorePlaylistScrollPos) {
+    requestAnimationFrame(() => {
+      main.scrollTo({
+        top: curPlaylistScrollTop, left: 0, behavior: 'instant'
+      })
+    })
+  }
 }
 
+// track current scroll position of playlist
+let curAboutScrollTop = 0
+let curPlaylistScrollTop = 0
+main.addEventListener('scroll', () => {
+  if (!about.classList.contains('hidden')) {
+    curAboutScrollTop = main.scrollTop
+  }
+  if (!playlist.classList.contains('hidden')) {
+    curPlaylistScrollTop = main.scrollTop
+  }
+})
+
 header.addEventListener('click', () => {
-  console.log('Header clicked: ', about.style.display || 'none')
   _toggleAbout()
 })
 
 miniPlayerTitle.addEventListener('click', () => {
-  console.log('Mini player title clicked: ', about.style.display || 'none')
   _toggleAbout()
 })

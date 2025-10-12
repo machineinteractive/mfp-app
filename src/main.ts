@@ -32,6 +32,19 @@ const currentlyPlayingTitle = document.querySelector<HTMLHeadingElement>('#curre
 const currentlyPlayingTracks = document.querySelector<HTMLParagraphElement>('#currently-playing-tracks')!
 const currentlyPlayingLinks = document.querySelector<HTMLParagraphElement>('#currently-playing-links')!
 
+//
+// track current scroll position of about and playlist screens
+//
+let curAboutScrollTop = 0
+let curPlaylistScrollTop = 0
+main.addEventListener('scroll', () => {
+  if (!about.classList.contains('hidden')) {
+    curAboutScrollTop = main.scrollTop
+  }
+  if (!playlist.classList.contains('hidden')) {
+    curPlaylistScrollTop = main.scrollTop
+  }
+})
 
 let curLink: HTMLAnchorElement | null = null
 
@@ -206,6 +219,9 @@ document.addEventListener('click', (event) => {
       })
     }
 
+    // reset About screen scroll position to top when a new link is clicked
+    curAboutScrollTop = 0
+
     event.preventDefault()
   }
 })
@@ -309,18 +325,6 @@ function _toggleAbout() {
     })
   }
 }
-
-// track current scroll position of playlist
-let curAboutScrollTop = 0
-let curPlaylistScrollTop = 0
-main.addEventListener('scroll', () => {
-  if (!about.classList.contains('hidden')) {
-    curAboutScrollTop = main.scrollTop
-  }
-  if (!playlist.classList.contains('hidden')) {
-    curPlaylistScrollTop = main.scrollTop
-  }
-})
 
 header.addEventListener('click', () => {
   _toggleAbout()

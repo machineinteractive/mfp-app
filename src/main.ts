@@ -17,6 +17,7 @@ const header = document.querySelector<HTMLElement>('header')!
 const aboutButton = document.querySelector<HTMLImageElement>('#about-button')!
 const closeButton = document.querySelector<HTMLImageElement>('#close-button')!
 const playlist = document.querySelector<HTMLDivElement>('#playlist')!
+const episodes = document.querySelectorAll('A')
 const about = document.querySelector<HTMLDivElement>('#about')!
 const main = document.querySelector<HTMLElement>('main')!
 const mfpAudioPlayer = document.querySelector<HTMLAudioElement>('#mfp-audio-player')!
@@ -24,6 +25,7 @@ const buttonPlay = document.querySelector<HTMLButtonElement>('#button-play')!
 const buttonStop = document.querySelector<HTMLButtonElement>('#button-stop')!
 const buttonSeekBack = document.querySelector<HTMLButtonElement>('#button-seek-back')!
 const buttonSeekForward = document.querySelector<HTMLButtonElement>('#button-seek-forward')!
+const buttonRandom = document.querySelector<HTMLButtonElement>('#button-random')!
 
 const miniPlayerTitle = document.querySelector<HTMLParagraphElement>('#mini-player-title')!
 const miniPlayerDuration = document.querySelector<HTMLParagraphElement>('#mini-player-duration')!
@@ -140,6 +142,10 @@ buttonSeekForward.addEventListener('click', () => {
   _seekForward(SEEK_30_SECONDS)
 })
 
+buttonRandom.addEventListener('click', () => {
+  _playRandomEpisode()
+})
+
 function _enableSeekButtons() {
   console.log('Enabling seek buttons')
   buttonSeekBack.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
@@ -236,11 +242,21 @@ function _seekBackward(offset: number) {
   console.log('Seeking backward:', currentTime, ' offset:', offset)
   mfpAudioPlayer.currentTime = Math.max(0, currentTime)
 }
+
 function _seekForward(offset: number) {
   const duration = Math.floor(mfpAudioPlayer.duration - 1)
   const currentTime = Math.floor(mfpAudioPlayer.currentTime + offset)
   console.log('Seeking forward:', currentTime, ' offset:', offset, ' duration:', duration)
   mfpAudioPlayer.currentTime = Math.min(duration, currentTime)
+}
+
+const _playRandomEpisode = () => {
+  console.log("play random episode...")
+  if (episodes.length > 0) {
+    const index = Math.floor(Math.random() * episodes.length)
+    const episode = episodes[index] as HTMLAnchorElement
+    episode.click()
+  }
 }
 
 if (hasMediaSession()) {

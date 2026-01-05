@@ -206,37 +206,18 @@
       padding-right: 16px;
     }
 
-    @media (max-height: 500px) {
-      #mini-player p {
-        margin: 0;
-      }
 
-      #button-seek-back,
-      #button-seek-forward {
-        width: 16px;
-        height: 16px;
-      }
-
-      #button-play,
-      #button-stop {
-        width: 24px;
-        height: 24px;
-      }
+    #button-seek-back,
+    #button-seek-forward {
+      width: 36px;
+      height: 36px;
     }
 
-    @media (min-height: 501px) {
-
-      #button-seek-back,
-      #button-seek-forward {
-        width: 36px;
-        height: 36px;
-      }
-
-      #button-play,
-      #button-stop {
-        width: 56px;
-        height: 56px;
-      }
+    #button-play,
+    #button-stop,
+    #button-random {
+      width: 56px;
+      height: 56px;
     }
 
     /* 

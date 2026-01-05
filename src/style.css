@@ -105,7 +105,7 @@
       --padding-4: 4px;
       --padding-8: 8px;
       --padding-16: 16px;
-      --a-min-height: 56px;
+      --a-min-height: 64px;
 
       font-family: "IBM Plex Mono", monospace;
       font-weight: 400;
@@ -115,6 +115,14 @@
       color: var(--c-green);
 
       touch-action: manipulation;
+    }
+
+    p {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
 
     h2 {

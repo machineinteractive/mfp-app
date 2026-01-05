@@ -1,13 +1,13 @@
 {
   "name": "mfp-app",
   "private": true,
-  "version": "1.0.5",
+  "version": "1.0.6",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "mfp-fetch-and-build": "source .venv/bin/activate && python mfp-fetch-and-build.p5",
+    "mfp-fetch-and-build": "source .venv/bin/activate && python mfp-fetch-and-build.py",
     "icons": "pwa-asset-generator public/mfp.svg ./public/assets --icon-only --favicon --type png --opaque --background '#000000'",
     "splash": "pwa-asset-generator public/mfp.svg ./public/splash --splash-only --background '#000000' --type png"
   },

@@ -110,7 +110,8 @@ mfpAudioPlayer.addEventListener('timeupdate', () => {
   //console.log('Audio player time update:', mfpAudioPlayer.currentTime, duration.textContent)
 })
 
-buttonStop.addEventListener('click', () => {
+buttonStop.addEventListener('click', (e: PointerEvent) => {
+  e.preventDefault()
   if (buttonStop.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     console.log('Play button is disabled, ignoring click')
     return
@@ -120,7 +121,8 @@ buttonStop.addEventListener('click', () => {
   showMiniPlayButton()
 })
 
-buttonPlay.addEventListener('click', () => {
+buttonPlay.addEventListener('click', (e: PointerEvent) => {
+  e.preventDefault()
   if (buttonPlay.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
@@ -128,21 +130,24 @@ buttonPlay.addEventListener('click', () => {
   showMiniStopButton()
 })
 
-buttonSeekBack.addEventListener('click', () => {
+buttonSeekBack.addEventListener('click', (e: PointerEvent) => {
+  e.preventDefault()
   if (buttonSeekBack.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
   _seekBackward(SEEK_30_SECONDS)
 })
 
-buttonSeekForward.addEventListener('click', () => {
+buttonSeekForward.addEventListener('click', (e: PointerEvent) => {
+  e.preventDefault()
   if (buttonSeekForward.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
   _seekForward(SEEK_30_SECONDS)
 })
 
-buttonRandom.addEventListener('click', () => {
+buttonRandom.addEventListener('click', (e: PointerEvent) => {
+  e.preventDefault()
   _playRandomEpisode()
 })
 
@@ -167,9 +172,11 @@ function _enableMiniPlayerControls() {
   buttonStop.classList.remove(HIDDEN_CLASS)
 }
 
-document.addEventListener('click', (event) => {
+document.addEventListener('click', (e) => {
 
-  const element = event.target as HTMLElement
+  e.preventDefault()
+
+  const element = e.target as HTMLElement
 
   const target = (element.tagName === 'DIV'
     && element.parentElement?.tagName === 'A') ? element.parentElement as HTMLAnchorElement
@@ -227,8 +234,6 @@ document.addEventListener('click', (event) => {
 
     // reset About screen scroll position to top when a new link is clicked
     curAboutScrollTop = 0
-
-    event.preventDefault()
   }
 })
 
@@ -342,10 +347,12 @@ function _toggleAbout() {
   }
 }
 
-header.addEventListener('click', () => {
+header.addEventListener('click', (e: PointerEvent) => {
+  e.preventDefault()
   _toggleAbout()
 })
 
-miniPlayerTitle.addEventListener('click', () => {
+miniPlayerTitle.addEventListener('click', (e: PointerEvent) => {
+  e.preventDefault()
   _toggleAbout()
 })

@@ -110,7 +110,7 @@ mfpAudioPlayer.addEventListener('timeupdate', () => {
   //console.log('Audio player time update:', mfpAudioPlayer.currentTime, duration.textContent)
 })
 
-buttonStop.addEventListener('click', (e: PointerEvent) => {
+buttonStop.addEventListener('click', (e: MouseEvent) => {
   e.preventDefault()
   if (buttonStop.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     console.log('Play button is disabled, ignoring click')
@@ -121,7 +121,7 @@ buttonStop.addEventListener('click', (e: PointerEvent) => {
   showMiniPlayButton()
 })
 
-buttonPlay.addEventListener('click', (e: PointerEvent) => {
+buttonPlay.addEventListener('click', (e: MouseEvent) => {
   e.preventDefault()
   if (buttonPlay.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
@@ -130,7 +130,7 @@ buttonPlay.addEventListener('click', (e: PointerEvent) => {
   showMiniStopButton()
 })
 
-buttonSeekBack.addEventListener('click', (e: PointerEvent) => {
+buttonSeekBack.addEventListener('click', (e: MouseEvent) => {
   e.preventDefault()
   if (buttonSeekBack.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
@@ -138,7 +138,7 @@ buttonSeekBack.addEventListener('click', (e: PointerEvent) => {
   _seekBackward(SEEK_30_SECONDS)
 })
 
-buttonSeekForward.addEventListener('click', (e: PointerEvent) => {
+buttonSeekForward.addEventListener('click', (e: MouseEvent) => {
   e.preventDefault()
   if (buttonSeekForward.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
@@ -146,7 +146,7 @@ buttonSeekForward.addEventListener('click', (e: PointerEvent) => {
   _seekForward(SEEK_30_SECONDS)
 })
 
-buttonRandom.addEventListener('click', (e: PointerEvent) => {
+buttonRandom.addEventListener('click', (e: MouseEvent) => {
   e.preventDefault()
   _playRandomEpisode()
 })
@@ -172,7 +172,7 @@ function _enableMiniPlayerControls() {
   buttonStop.classList.remove(HIDDEN_CLASS)
 }
 
-document.addEventListener('click', (e) => {
+document.addEventListener('click', (e: MouseEvent) => {
 
   e.preventDefault()
 
@@ -347,12 +347,12 @@ function _toggleAbout() {
   }
 }
 
-header.addEventListener('click', (e: PointerEvent) => {
+header.addEventListener('click', (e: MouseEvent) => {
   e.preventDefault()
   _toggleAbout()
 })
 
-miniPlayerTitle.addEventListener('click', (e: PointerEvent) => {
+miniPlayerTitle.addEventListener('click', (e: MouseEvent) => {
   e.preventDefault()
   _toggleAbout()
 })

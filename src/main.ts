@@ -182,7 +182,7 @@ document.addEventListener('click', (e: MouseEvent) => {
     && element.parentElement?.tagName === 'A') ? element.parentElement as HTMLAnchorElement
     : element as HTMLAnchorElement
 
-  if (target.tagName === 'A' && target.href && target.dataset.tracks) {
+  if (target.tagName === 'A' && target.href && target.dataset.title) {
     console.log('Link clicked:', target.href)
 
     curLink = target
@@ -191,7 +191,7 @@ document.addEventListener('click', (e: MouseEvent) => {
 
     console.log(target.dataset)
 
-    const titleText = `${target.innerText}`
+    const titleText = `${target.dataset.title} [${target.dataset.duration}]`
 
     try {
       const links = JSON.parse(target.dataset.links as string)

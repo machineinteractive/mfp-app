@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.9] - 2026-01-07
+
+### Added
+
+- Added responsive grid playlist
+
+### Changed
+
+- Adjust playlist and mini-player UI
+- Update screenshot
+
 ## [1.0.8] - 2026-01-06
 
 ### Changed

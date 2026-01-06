@@ -113,14 +113,15 @@
         </div>
       </div>
     </header>
-    <main>
+    <main class="stack-wrapper">
       <div id="playlist" class="screen">
         {% for episode in episodes %}
-        <a data-duration="{{ episode.itunes_duration | e }}" data-links="{{ episode.links | e }}"
-          data-tracks="{{ episode.tracks | e }}" href="{{ episode.guid }}">
+        <a data-title="{{ episode.title }}" data-duration="{{ episode.itunes_duration | e }}"
+          data-links="{{ episode.links | e }}" data-tracks="{{ episode.tracks | e }}" href="{{ episode.guid }}">
           <div>
             {{ episode.title }}<br>
-            [{{ episode.itunes_duration}}]
+            [{{ episode.itunes_duration}}]<br>
+            {{ episode.pubDate }}
           </div>
         </a>
         {% endfor %}

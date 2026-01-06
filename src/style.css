@@ -169,6 +169,21 @@
       overflow-y: auto;
     }
 
+    .stack-wrapper {
+      display: grid;
+      grid-template: "overlap";
+    }
+
+    #playlist,
+    #about {
+      grid-area: overlap;
+      align-self: start;
+    }
+
+    #about {
+      z-index: 2;
+    }
+
     #mini-player {
       background-color: var(--c-black-mini-player);
       display: grid;
@@ -216,14 +231,14 @@
 
 
     #button-seek-back,
-    #button-seek-forward {
+    #button-seek-forward,
+    #button-random {
       width: 36px;
       height: 36px;
     }
 
     #button-play,
-    #button-stop,
-    #button-random {
+    #button-stop {
       width: 56px;
       height: 56px;
     }
@@ -267,16 +282,73 @@
       margin: 0;
     }
 
-    #playlist a,
+    #playlist {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    #playlist a:nth-child(-n + 1) {
+      border-top-style: dashed;
+    }
+
+    #playlist a {
+      box-sizing: border-box;
+      color: inherit;
+      text-align: left;
+      min-height: var(--a-min-height);
+      padding: var(--padding-16);
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      word-break: break-all;
+      border-bottom-style: dashed;
+      border-left-style: dashed;
+      border-right-style: dashed;
+    }
+
+    @media screen and (min-width: 481px) {
+      #playlist {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      #playlist a:nth-child(-n + 2) {
+        border-top-style: dashed;
+      }
+
+      #playlist a:nth-child(1n) {
+        border-left: none;
+      }
+
+      #playlist a:nth-child(2n) {
+        border-right: none;
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      #playlist {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      #playlist a:nth-child(-n + 3) {
+        border-top-style: dashed;
+      }
+
+      #playlist a:nth-child(2n) {
+        border-right-style: dashed;
+      }
+
+      #playlist a:nth-child(3n) {
+        border-right: none;
+      }
+    }
+
     #currently-playing-tracks a,
     #currently-playing-links a {
       box-sizing: border-box;
       color: inherit;
       text-align: left;
       min-height: var(--a-min-height);
-      padding-left: var(--padding-16);
-      padding-right: var(--padding-16);
-      width: 100vw;
+      padding: var(--padding-16);
       display: flex;
       align-items: center;
       text-decoration: none;

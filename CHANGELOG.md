@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.10] - 2026-01-07
+
+### Changed
+
+- Made playlist dashed borders thinner
+- Update screenshot
+
 ## [1.0.9] - 2026-01-07
 
 ### Added

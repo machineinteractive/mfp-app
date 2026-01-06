@@ -50,16 +50,16 @@ main.addEventListener('scroll', () => {
 
 let curLink: HTMLAnchorElement | null = null
 
-function hasMediaSession(): boolean {
+const hasMediaSession = (): boolean => {
   return "mediaSession" in navigator
 }
 
-function showMiniPlayButton() {
+const showMiniPlayButton = () => {
   buttonPlay.classList.remove(HIDDEN_CLASS)
   buttonStop.classList.add(HIDDEN_CLASS)
 }
 
-function showMiniStopButton() {
+const showMiniStopButton = () => {
   buttonPlay.classList.add(HIDDEN_CLASS)
   buttonStop.classList.remove(HIDDEN_CLASS)
 }
@@ -92,7 +92,7 @@ mfpAudioPlayer.addEventListener('canplay', async () => {
   await mfpAudioPlayer.play()
 })
 
-function _secondsToTime(seconds: number): string {
+const _secondsToTime = (seconds: number): string => {
 
   if (isNaN(seconds) || seconds < 0) {
     return '00:00:00'
@@ -151,19 +151,19 @@ buttonRandom.addEventListener('click', (e: MouseEvent) => {
   _playRandomEpisode()
 })
 
-function _enableSeekButtons() {
+const _enableSeekButtons = () => {
   console.log('Enabling seek buttons')
   buttonSeekBack.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   buttonSeekForward.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
 }
 
-function _disableSeekButtons() {
+const _disableSeekButtons = () => {
   console.log('Disabling seek buttons')
   buttonSeekBack.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
   buttonSeekForward.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
 }
 
-function _enableMiniPlayerControls() {
+const _enableMiniPlayerControls = () => {
   buttonSeekBack.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   buttonSeekForward.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   buttonPlay.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
@@ -242,13 +242,13 @@ document.addEventListener("visibilitychange", () => {
 })
 
 
-function _seekBackward(offset: number) {
+const _seekBackward = (offset: number) => {
   const currentTime = Math.floor(mfpAudioPlayer.currentTime - offset)
   console.log('Seeking backward:', currentTime, ' offset:', offset)
   mfpAudioPlayer.currentTime = Math.max(0, currentTime)
 }
 
-function _seekForward(offset: number) {
+const _seekForward = (offset: number) => {
   const duration = Math.floor(mfpAudioPlayer.duration - 1)
   const currentTime = Math.floor(mfpAudioPlayer.currentTime + offset)
   console.log('Seeking forward:', currentTime, ' offset:', offset, ' duration:', duration)
@@ -265,7 +265,7 @@ const _playRandomEpisode = () => {
 }
 
 if (hasMediaSession()) {
-  function _updatePositionState() {
+  const _updatePositionState = () => {
     navigator.mediaSession.setPositionState({
       duration: mfpAudioPlayer.duration,
       playbackRate: mfpAudioPlayer.playbackRate,
@@ -311,8 +311,7 @@ if (hasMediaSession()) {
   })
 }
 
-
-function _toggleAbout() {
+const _toggleAbout = () => {
 
   let restoreAboutScrollPos = false
   let restorePlaylistScrollPos = false

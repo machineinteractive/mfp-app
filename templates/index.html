@@ -102,7 +102,9 @@
 </head>
 
 <body>
-  <div class="app-container">
+  <main>
+
+
     <header>
       <div class="header-nav">
         <div style="display: inline; width:24px; height: 24px;"></div>
@@ -113,8 +115,10 @@
         </div>
       </div>
     </header>
-    <main class="stack-wrapper">
-      <div id="playlist" class="screen">
+
+    <div id="scroll-container">
+
+      <div id="playlist" class="screen active">
         {% for episode in episodes %}
         <a data-title="{{ episode.title }}" data-duration="{{ episode.itunes_duration | e }}"
           data-links="{{ episode.links | e }}" data-tracks="{{ episode.tracks | e }}" href="{{ episode.guid }}">
@@ -126,7 +130,8 @@
         </a>
         {% endfor %}
       </div>
-      <div id="about" class="screen hidden">
+
+      <div id="about" class="screen">
         <h2>About</h2>
         <h4>mfp; version: {{ app_version }}</h4>
         <p>
@@ -164,7 +169,9 @@
         <p><b>### EOF ###</b></p>
 
       </div>
-    </main>
+
+    </div>
+
     <footer>
       <div id="mini-player">
         <div id="mini-player-info">
@@ -180,7 +187,9 @@
         </div>
       </div>
     </footer>
-  </div>
+
+
+  </main>
   <audio id="mfp-audio-player"></audio>
   <script type="module" src="/src/main.ts"></script>
 </body>

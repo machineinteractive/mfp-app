@@ -4,9 +4,9 @@
 
     html,
     body {
-      height: 100%;
       margin: 0;
       padding: 0;
+      height: 100%;
       /* disable scrollbars by default */
       overflow: hidden;
     }
@@ -105,7 +105,7 @@
       --padding-4: 4px;
       --padding-8: 8px;
       --padding-16: 16px;
-      --a-min-height: 64px;
+      --a-min-height: 96px;
 
       font-family: "IBM Plex Mono", monospace;
       font-weight: 400;
@@ -138,10 +138,22 @@
       }
     }
 
+    main {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      width: 100vw;
+      height: 100dvh;
+    }
+
     header {
       width: 100vw;
       height: var(--h-header-height);
       box-sizing: border-box;
+    }
+
+    header,
+    footer {
+      z-index: 100;
     }
 
     .header-nav {
@@ -162,26 +174,27 @@
       padding-right: var(--padding-16);
     }
 
-    main {
-      flex-grow: 1;
-      /* if needed then allow main content area to scroll only in the Y direction */
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-
-    .stack-wrapper {
+    #scroll-container {
       display: grid;
-      grid-template: "overlap";
+      grid-template-areas: "scroll-container";
+      overflow-y: auto;
+      scrollbar-gutter: stable;
     }
 
-    #playlist,
-    #about {
-      grid-area: overlap;
-      align-self: start;
+    .screen {
+      grid-area: scroll-container;
+      height: 0;
+      overflow: hidden;
+      width: 100%;
+      z-index: 0;
     }
 
-    #about {
-      z-index: 2;
+    .screen.active {
+      visibility: visible;
+      height: auto;
+      min-height: 100%;
+      overflow: visible;
+      z-index: 1;
     }
 
     #mini-player {
@@ -243,17 +256,6 @@
       height: 56px;
     }
 
-    /* 
-    Layout container for the entire app. Each section is fixed in position with the main content
-    area expanding to fill the available space between the header and footer.
-    */
-    .app-container {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      flex-direction: column;
-    }
-
     .player-controls-disabled {
       filter: grayscale(1);
       opacity: 0.25;
@@ -262,11 +264,6 @@
     .hidden {
       display: none;
       visibility: hidden;
-    }
-
-    /* represents an "app" screen */
-    .screen {
-      padding-bottom: calc(var(--padding-16) * 2);
     }
 
     .screen h1,
@@ -328,6 +325,12 @@
     }
 
     @media screen and (min-width: 768px) {
+
+      body {
+        --a-min-height: 128px;
+      }
+
+
       #playlist {
         grid-template-columns: repeat(3, 1fr);
       }

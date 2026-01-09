@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.11] - 2026-01-08
+
+### Changed
+
+- Refactor playlist and about screens to use stacked CSS grid
+
 ## [1.0.10] - 2026-01-07
 
 ### Changed

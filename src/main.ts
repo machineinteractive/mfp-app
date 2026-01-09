@@ -10,6 +10,7 @@ import './style.css'
 // }
 
 const PLAYER_CONTROLS_DISABLED_CLASS = 'player-controls-disabled'
+const ACTIVE_CLASS = 'active'
 const HIDDEN_CLASS = 'hidden'
 const SEEK_30_SECONDS = 30
 
@@ -19,7 +20,7 @@ const closeButton = document.querySelector<HTMLImageElement>('#close-button')!
 const playlist = document.querySelector<HTMLDivElement>('#playlist')!
 const episodes = document.querySelectorAll('A')
 const about = document.querySelector<HTMLDivElement>('#about')!
-const main = document.querySelector<HTMLElement>('main')!
+const scrollContainer = document.querySelector<HTMLElement>('#scroll-container')!
 const mfpAudioPlayer = document.querySelector<HTMLAudioElement>('#mfp-audio-player')!
 const buttonPlay = document.querySelector<HTMLButtonElement>('#button-play')!
 const buttonStop = document.querySelector<HTMLButtonElement>('#button-stop')!
@@ -39,12 +40,12 @@ const currentlyPlayingLinks = document.querySelector<HTMLParagraphElement>('#cur
 //
 let curAboutScrollTop = 0
 let curPlaylistScrollTop = 0
-main.addEventListener('scroll', () => {
-  if (!about.classList.contains('hidden')) {
-    curAboutScrollTop = main.scrollTop
+scrollContainer.addEventListener('scroll', () => {
+  if (about.classList.contains(ACTIVE_CLASS)) {
+    curAboutScrollTop = scrollContainer.scrollTop
   }
-  if (!playlist.classList.contains('hidden')) {
-    curPlaylistScrollTop = main.scrollTop
+  if (playlist.classList.contains(ACTIVE_CLASS)) {
+    curPlaylistScrollTop = scrollContainer.scrollTop
   }
 })
 
@@ -316,22 +317,22 @@ const _toggleAbout = () => {
   let restoreAboutScrollPos = false
   let restorePlaylistScrollPos = false
 
-  if (about.classList.contains('hidden')) {
+  if (!about.classList.contains(ACTIVE_CLASS)) {
     restoreAboutScrollPos = true
   } else {
     restorePlaylistScrollPos = true
   }
 
   requestAnimationFrame(() => {
-    about.classList.toggle('hidden')
-    playlist.classList.toggle('hidden')
-    aboutButton.classList.toggle('hidden')
-    closeButton.classList.toggle('hidden')
+    about.classList.toggle(ACTIVE_CLASS)
+    playlist.classList.toggle(ACTIVE_CLASS)
+    aboutButton.classList.toggle(HIDDEN_CLASS)
+    closeButton.classList.toggle(HIDDEN_CLASS)
   })
 
   if (restoreAboutScrollPos) {
     requestAnimationFrame(() => {
-      main.scrollTo({
+      scrollContainer.scrollTo({
         top: curAboutScrollTop, left: 0, behavior: 'instant'
       })
     })
@@ -339,7 +340,7 @@ const _toggleAbout = () => {
 
   if (restorePlaylistScrollPos) {
     requestAnimationFrame(() => {
-      main.scrollTo({
+      scrollContainer.scrollTo({
         top: curPlaylistScrollTop, left: 0, behavior: 'instant'
       })
     })

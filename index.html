@@ -102,7 +102,9 @@
 </head>
 
 <body>
-  <div class="app-container">
+  <main>
+
+
     <header>
       <div class="header-nav">
         <div style="display: inline; width:24px; height: 24px;"></div>
@@ -113,8 +115,10 @@
         </div>
       </div>
     </header>
-    <main class="stack-wrapper">
-      <div id="playlist" class="screen">
+
+    <div id="scroll-container">
+
+      <div id="playlist" class="screen active">
         
         <a data-title="Episode 76: Material Object" data-duration="2:14:02"
           data-links="[&#34;https://materialobject.com/&#34;]" data-tracks="[&#34;Adham Shaikh and Tim Floyd - Portals&#34;, &#34;Aleksi Per\u00e4l\u00e4 - CYCLES 11&#34;, &#34;Arovane - Wirkung&#34;, &#34;Bill Laswell - Outer Dark&#34;, &#34;crys cole &amp; oren ambarchi - Gallivant&#34;, &#34;Divination - Dead Slow&#34;, &#34;Future Sound of London - Environments&#34;, &#34;Ishq - onirojenik&#34;, &#34;Loren Nerell - The Venerable Dark Cloud&#34;, &#34;Material Object - Telepath&#34;, &#34;O Yuki Conjugate - Equator&#34;, &#34;Rapoon - Darker by Light&#34;, &#34;Russel Mills &amp; Mike Fearon - Still Moves&#34;]" href="https://datashat.net/music_for_programming_76-material_object.mp3">
@@ -801,9 +805,10 @@
         </a>
         
       </div>
-      <div id="about" class="screen hidden">
+
+      <div id="about" class="screen">
         <h2>About</h2>
-        <h4>mfp; version: 1.0.10</h4>
+        <h4>mfp; version: 1.0.11</h4>
         <p>
           mfp; is a PWA remix of
           <a href="https://musicforprogramming.net" target="_blank" rel="noopener noreferrer">
@@ -839,7 +844,9 @@
         <p><b>### EOF ###</b></p>
 
       </div>
-    </main>
+
+    </div>
+
     <footer>
       <div id="mini-player">
         <div id="mini-player-info">
@@ -855,7 +862,9 @@
         </div>
       </div>
     </footer>
-  </div>
+
+
+  </main>
   <audio id="mfp-audio-player"></audio>
   <script type="module" src="/src/main.ts"></script>
 </body>

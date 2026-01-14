@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0] - 2026-01-13
+
+### Added
+
+- Added Fullscreen player
+- Added Episode Playlist Modal
+
+### Changed
+
+- Refactor About screen
+- Misc refactoring
+- Update screenshot
+
 ## [1.0.11] - 2026-01-08
 
 ### Changed

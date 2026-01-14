@@ -102,26 +102,25 @@
 </head>
 
 <body>
+
   <main>
-
-
     <header>
       <div class="header-nav">
         <div style="display: inline; width:24px; height: 24px;"></div>
         <p class="ibm-plex-mono-semibold">mfp;</p>
         <div class="stacked-button-container">
           <img id="about-button" src="about.svg" alt="About Screen Open Button" width="24" height="24">
-          <img id="close-button" src="close.svg" alt="About Screen Close Button" width="24" height="24" class="hidden">
+
         </div>
       </div>
     </header>
 
     <div id="scroll-container">
-
-      <div id="playlist" class="screen active">
+      <div id="episodes" class="screen active">
         {% for episode in episodes %}
-        <a data-title="{{ episode.title }}" data-duration="{{ episode.itunes_duration | e }}"
-          data-links="{{ episode.links | e }}" data-tracks="{{ episode.tracks | e }}" href="{{ episode.guid }}">
+        <a data-index="{{ loop.index0 }}" data-title="{{ episode.title }}"
+          data-duration="{{ episode.itunes_duration | e }}" data-links="{{ episode.links | e }}"
+          data-tracks="{{ episode.tracks | e }}" href="{{ episode.guid }}">
           <div>
             {{ episode.title }}<br>
             [{{ episode.itunes_duration}}]<br>
@@ -130,46 +129,6 @@
         </a>
         {% endfor %}
       </div>
-
-      <div id="about" class="screen">
-        <h2>About</h2>
-        <h4>mfp; version: {{ app_version }}</h4>
-        <p>
-          mfp; is a PWA remix of
-          <a href="https://musicforprogramming.net" target="_blank" rel="noopener noreferrer">
-            musicforprogramming.net</a>.
-          All the episode data comes from the <b>musicforprogramming.net</b> RSS feed.
-        </p>
-        <p>Thank you <a href="https://datassette.net/" target="_blank" rel="noopener noreferrer">Datassette</a> for
-          all
-          the years of amazing music!
-        </p>
-        <p>Details on how to support <a href="https://datassette.net/" target="_blank"
-            rel="noopener noreferrer">Datassette</a> and the episode artists can be found here:
-          <a href="https://musicforprogramming.net/credits" target="_blank"
-            rel="noopener noreferrer">https://musicforprogramming.net/credits</a>
-        </p>
-        <p>NOTE: This app is not affiliated with <a href="https://musicforprogramming.net" target="_blank"
-            rel="noopener noreferrer">
-            musicforprogramming.net</a></p>
-        <p>
-          mfp; app created by <a href="https://machineinteractive.com" target="_blank"
-            rel="noopener noreferrer">machineinteractive.com</a>
-        </p>
-        <h2 style="padding-bottom: 8px;">Currently Playing</h2>
-        <h3 id="currently-playing-title" style="padding-bottom: 8px;">
-          ----------
-        </h3>
-        <div id="currently-playing-tracks" class="ibm-plex-mono-light-italic">
-          <p>----------</p>
-        </div>
-        <div id="currently-playing-links" class="ibm-plex-mono-semibold-italic">
-          <p>----------</p>
-        </div>
-        <p><b>### EOF ###</b></p>
-
-      </div>
-
     </div>
 
     <footer>
@@ -179,17 +138,112 @@
         </div>
         <div id="mini-player-controls">
           <p id="mini-player-duration">00:00:00</p>
-          <img id="button-seek-back" class="player-controls-disabled" src="seek_back.svg" alt="Seek back 30s">
-          <img id="button-play" class="player-controls-disabled" src="play.svg" alt="Play">
-          <img id="button-stop" class="hidden" src="stop.svg" alt="Stop">
-          <img id="button-seek-forward" class="player-controls-disabled" src="seek_forward.svg" alt="Seek back 30s">
-          <img id="button-random" src="random.svg" alt="Random">
+          <img id="mp-button-seek-back" class="player-button-small player-controls-disabled" src="seek_back.svg"
+            alt="Seek back 30s">
+          <img id="mp-button-play" class="player-button-large player-controls-disabled" src="play.svg" alt="Play">
+          <img id="mp-button-stop" class="player-button-large hidden" src="stop.svg" alt="Stop">
+          <img id="mp-button-seek-forward" class="player-button-small player-controls-disabled" src="seek_forward.svg"
+            alt="Seek back 30s">
+          <img id="mp-button-random" class="player-button-small" src="random.svg" alt="Pick Random Episode">
         </div>
       </div>
     </footer>
-
-
   </main>
+
+  <div id="about" class="modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <img id="about-close-button" src="close.svg" alt="Close About" width="24" height="24">
+      </div>
+
+      <h2>About</h2>
+      <h4>mfp; version: {{ app_version }}</h4>
+
+      <p>
+        mfp; is a PWA remix of
+        <a href="https://musicforprogramming.net" target="_blank" rel="noopener noreferrer">
+          musicforprogramming.net</a>.
+        All the episode data comes from the <b>musicforprogramming.net</b> RSS feed.
+      </p>
+      <p>Thank you <a href="https://datassette.net/" target="_blank" rel="noopener noreferrer">Datassette</a> for
+        all
+        the years of amazing music!
+      </p>
+      <p>Details on how to support <a href="https://datassette.net/" target="_blank"
+          rel="noopener noreferrer">Datassette</a> and the episode artists can be found here:
+        <a href="https://musicforprogramming.net/credits" target="_blank"
+          rel="noopener noreferrer">https://musicforprogramming.net/credits</a>
+      </p>
+      <p>NOTE: This app is not affiliated with <a href="https://musicforprogramming.net" target="_blank"
+          rel="noopener noreferrer">
+          musicforprogramming.net</a></p>
+      <p>
+        mfp; app created by <a href="https://machineinteractive.com" target="_blank"
+          rel="noopener noreferrer">machineinteractive.com</a>
+      </p>
+      <p><b>### EOF ###</b></p>
+    </div>
+  </div>
+
+  <div id="fullscreen-player">
+    <div class="fullscreen-container">
+      <div id="fullscreen-player-header">
+        <img id="fullscreen-close-button" src="keyboard_arrow_down.svg" alt="Fullscreen Close Button" width="24"
+          height="24">
+      </div>
+
+      <div id="fullscreen-player-main">
+
+        <!-- VISUALIZER GOES HERE... -->
+        <div id="visualizer">
+          <canvas></canvas>
+        </div>
+
+        <div id="fullscreen-player-info">
+          <p id="fullscreen-player-title" class="plex-mono-semibold">---------</p>
+          <p><span id="fullscreen-player-duration">00:00:00</span> / [<span
+              id="fullscreen-player-title-duration">--:--:--</span>]</p>
+        </div>
+      </div>
+
+      <div id="fullscreen-player-controls">
+        <img id="fs-button-skip-prev" class="player-button-small player-controls-disabled" src="skip_prev.svg"
+          alt="Skip Previous">
+        <img id="fs-button-seek-back" class="player-button-small player-controls-disabled" src="seek_back.svg"
+          alt="Seek back 30s">
+        <img id="fs-button-play" class="player-button-large player-controls-disabled" src="play.svg" alt="Play">
+        <img id="fs-button-stop" class="player-button-large hidden" src="stop.svg" alt="Stop">
+        <img id="fs-button-seek-forward" class="player-button-small player-controls-disabled" src="seek_forward.svg"
+          alt="Seek back 30s">
+        <img id="fs-button-skip-next" class="player-button-small player-controls-disabled" src="skip_next.svg"
+          alt="Skip Next">
+        <img id="fs-button-random" class="player-button-small" src="random.svg" alt="Pick Random Episode">
+        <img id="fs-button-playlist" class="player-button-small player-controls-disabled" src="playlist.svg"
+          alt="Show Episode Playlist and Links">
+      </div>
+    </div>
+  </div>
+
+  <div id="playlist" class="modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <img id="playlist-close-button" src="close.svg" alt="Close Playlist" width="24" height="24">
+      </div>
+
+      <div>
+        <h2 id="playlist-title"></h2>
+      </div>
+
+      <div id="playlist-tracks" class="ibm-plex-mono-light-italic">
+        <p>----------</p>
+      </div>
+      <div id="playlist-links" class="ibm-plex-mono-semibold-italic">
+        <p>----------</p>
+      </div>
+      <p><b>### EOF ###</b></p>
+    </div>
+  </div>
+
   <audio id="mfp-audio-player"></audio>
   <script type="module" src="/src/main.ts"></script>
 </body>

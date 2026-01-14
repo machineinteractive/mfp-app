@@ -9,45 +9,48 @@ import './style.css'
 //   links: Array<string>
 // }
 
+const ZERO_ZERO_ZERO_TIME = '00:00:00'
+
 const PLAYER_CONTROLS_DISABLED_CLASS = 'player-controls-disabled'
-const ACTIVE_CLASS = 'active'
 const HIDDEN_CLASS = 'hidden'
 const SEEK_30_SECONDS = 30
 
 const header = document.querySelector<HTMLElement>('header')!
-const aboutButton = document.querySelector<HTMLImageElement>('#about-button')!
-const closeButton = document.querySelector<HTMLImageElement>('#close-button')!
-const playlist = document.querySelector<HTMLDivElement>('#playlist')!
-const episodes = document.querySelectorAll('A')
-const about = document.querySelector<HTMLDivElement>('#about')!
-const scrollContainer = document.querySelector<HTMLElement>('#scroll-container')!
+const aboutCloseButton = document.querySelector<HTMLImageElement>('#about-close-button')!
+const episodesContainer = document.querySelector<HTMLDivElement>('#episodes')!
+const episodes = episodesContainer.querySelectorAll('A')
+const about = document.querySelector<HTMLDialogElement>('#about')!
 const mfpAudioPlayer = document.querySelector<HTMLAudioElement>('#mfp-audio-player')!
-const buttonPlay = document.querySelector<HTMLButtonElement>('#button-play')!
-const buttonStop = document.querySelector<HTMLButtonElement>('#button-stop')!
-const buttonSeekBack = document.querySelector<HTMLButtonElement>('#button-seek-back')!
-const buttonSeekForward = document.querySelector<HTMLButtonElement>('#button-seek-forward')!
-const buttonRandom = document.querySelector<HTMLButtonElement>('#button-random')!
+const miniPlayerPlayButton = document.querySelector<HTMLButtonElement>('#mp-button-play')!
+const miniPlayerStopButton = document.querySelector<HTMLButtonElement>('#mp-button-stop')!
+const miniPlayerSeekBackButton = document.querySelector<HTMLButtonElement>('#mp-button-seek-back')!
+const miniPlayerSeekForwardButton = document.querySelector<HTMLButtonElement>('#mp-button-seek-forward')!
+const miniPlayerRandomEpisodeButton = document.querySelector<HTMLButtonElement>('#mp-button-random')!
 
 const miniPlayerTitle = document.querySelector<HTMLParagraphElement>('#mini-player-title')!
 const miniPlayerDuration = document.querySelector<HTMLParagraphElement>('#mini-player-duration')!
 
-const currentlyPlayingTitle = document.querySelector<HTMLHeadingElement>('#currently-playing-title')!
-const currentlyPlayingTracks = document.querySelector<HTMLParagraphElement>('#currently-playing-tracks')!
-const currentlyPlayingLinks = document.querySelector<HTMLParagraphElement>('#currently-playing-links')!
+const fullscreenPlayer = document.getElementById('fullscreen-player')!
+const fullscreenCloseButton = document.querySelector<HTMLImageElement>('#fullscreen-close-button')!
+const fullscreenPlayerTitle = document.querySelector<HTMLParagraphElement>('#fullscreen-player-title')!
+const fullscreenPlayerTitleDuration = document.querySelector<HTMLParagraphElement>('#fullscreen-player-title-duration')!
+const fullscreenPlayerDuration = document.querySelector<HTMLParagraphElement>('#fullscreen-player-duration')!
+const fullscreenPlayerPlaylistButton = document.querySelector<HTMLButtonElement>('#fs-button-playlist')!
 
-//
-// track current scroll position of about and playlist screens
-//
-let curAboutScrollTop = 0
-let curPlaylistScrollTop = 0
-scrollContainer.addEventListener('scroll', () => {
-  if (about.classList.contains(ACTIVE_CLASS)) {
-    curAboutScrollTop = scrollContainer.scrollTop
-  }
-  if (playlist.classList.contains(ACTIVE_CLASS)) {
-    curPlaylistScrollTop = scrollContainer.scrollTop
-  }
-})
+const fullscreenPlayerPlayButton = document.querySelector<HTMLButtonElement>('#fs-button-play')!
+const fullscreenPlayerStopButton = document.querySelector<HTMLButtonElement>('#fs-button-stop')!
+const fullscreenPlayerSeekBackButton = document.querySelector<HTMLButtonElement>('#fs-button-seek-back')!
+const fullscreenPlayerSeekForwardButton = document.querySelector<HTMLButtonElement>('#fs-button-seek-forward')!
+const fullscreenPlayerSkipPrevButton = document.querySelector<HTMLButtonElement>('#fs-button-skip-prev')!
+const fullscreenPlayerSkipNextButton = document.querySelector<HTMLButtonElement>('#fs-button-skip-next')!
+const fullscreenPlayerRandomEpisodeButton = document.querySelector<HTMLButtonElement>('#fs-button-random')!
+
+
+const playlist = document.querySelector<HTMLDialogElement>('#playlist')!
+const playlistCloseButton = document.querySelector<HTMLImageElement>('#playlist-close-button')!
+const playlistTitle = document.querySelector<HTMLHeadingElement>('#playlist-title')!
+const playlistTracks = document.querySelector<HTMLParagraphElement>('#playlist-tracks')!
+const playlistLinks = document.querySelector<HTMLParagraphElement>('#playlist-links')!
 
 let curLink: HTMLAnchorElement | null = null
 
@@ -55,33 +58,37 @@ const hasMediaSession = (): boolean => {
   return "mediaSession" in navigator
 }
 
-const showMiniPlayButton = () => {
-  buttonPlay.classList.remove(HIDDEN_CLASS)
-  buttonStop.classList.add(HIDDEN_CLASS)
+const showPlayButton = () => {
+  miniPlayerPlayButton.classList.remove(HIDDEN_CLASS)
+  miniPlayerStopButton.classList.add(HIDDEN_CLASS)
+  fullscreenPlayerPlayButton.classList.remove(HIDDEN_CLASS)
+  fullscreenPlayerStopButton.classList.add(HIDDEN_CLASS)
 }
 
-const showMiniStopButton = () => {
-  buttonPlay.classList.add(HIDDEN_CLASS)
-  buttonStop.classList.remove(HIDDEN_CLASS)
+const showStopButton = () => {
+  miniPlayerPlayButton.classList.add(HIDDEN_CLASS)
+  miniPlayerStopButton.classList.remove(HIDDEN_CLASS)
+  fullscreenPlayerPlayButton.classList.add(HIDDEN_CLASS)
+  fullscreenPlayerStopButton.classList.remove(HIDDEN_CLASS)
 }
 
 mfpAudioPlayer.addEventListener('play', () => {
   console.log('Audio player is playing')
   navigator.mediaSession.playbackState = 'playing'
-  _enableSeekButtons()
+  _enableSeekAndPlaylistButtons()
 })
 
 mfpAudioPlayer.addEventListener('pause', () => {
   console.log('Audio player is paused')
   navigator.mediaSession.playbackState = 'paused'
-  showMiniPlayButton()
-  _disableSeekButtons()
+  showPlayButton()
+  _disableSeekAndPlaylistButtons()
 })
 
 mfpAudioPlayer.addEventListener('ended', () => {
   console.log('Audio player is ended')
-  showMiniPlayButton()
-  _disableSeekButtons()
+  showPlayButton()
+  _disableSeekAndPlaylistButtons()
 })
 
 mfpAudioPlayer.addEventListener('loadstart', () => {
@@ -96,7 +103,7 @@ mfpAudioPlayer.addEventListener('canplay', async () => {
 const _secondsToTime = (seconds: number): string => {
 
   if (isNaN(seconds) || seconds < 0) {
-    return '00:00:00'
+    return ZERO_ZERO_ZERO_TIME
   }
 
   const wholeSeconds = Math.floor(seconds)
@@ -108,74 +115,183 @@ const _secondsToTime = (seconds: number): string => {
 
 mfpAudioPlayer.addEventListener('timeupdate', () => {
   miniPlayerDuration.textContent = _secondsToTime(mfpAudioPlayer.currentTime)
+  fullscreenPlayerDuration.textContent = _secondsToTime(mfpAudioPlayer.currentTime)
   //console.log('Audio player time update:', mfpAudioPlayer.currentTime, duration.textContent)
 })
 
-buttonStop.addEventListener('click', (e: MouseEvent) => {
+const _handlePlayerStop = (e: MouseEvent, button: HTMLButtonElement) => {
   e.preventDefault()
-  if (buttonStop.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
+
+  if (button.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     console.log('Play button is disabled, ignoring click')
     return
   }
   console.log('Stop button clicked')
   mfpAudioPlayer.pause()
-  showMiniPlayButton()
+  showPlayButton()
+}
+
+miniPlayerStopButton.addEventListener('click', (e: MouseEvent) => {
+  _handlePlayerStop(e, miniPlayerPlayButton)
 })
 
-buttonPlay.addEventListener('click', (e: MouseEvent) => {
+fullscreenPlayerStopButton.addEventListener('click', (e: MouseEvent) => {
+  _handlePlayerStop(e, fullscreenPlayerStopButton)
+})
+
+const _handlePlayerPlay = (e: MouseEvent, button: HTMLButtonElement) => {
   e.preventDefault()
-  if (buttonPlay.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
+  if (button.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
   mfpAudioPlayer.play()
-  showMiniStopButton()
+  showStopButton()
+}
+
+miniPlayerPlayButton.addEventListener('click', (e: MouseEvent) => {
+  _handlePlayerPlay(e, miniPlayerPlayButton)
 })
 
-buttonSeekBack.addEventListener('click', (e: MouseEvent) => {
+fullscreenPlayerPlayButton.addEventListener('click', (e: MouseEvent) => {
+  _handlePlayerPlay(e, fullscreenPlayerPlayButton)
+})
+
+const _handleSeekBack = (e: MouseEvent, button: HTMLButtonElement) => {
   e.preventDefault()
-  if (buttonSeekBack.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
+  if (button.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
   _seekBackward(SEEK_30_SECONDS)
+}
+
+miniPlayerSeekBackButton.addEventListener('click', (e: MouseEvent) => {
+  _handleSeekBack(e, miniPlayerSeekBackButton)
 })
 
-buttonSeekForward.addEventListener('click', (e: MouseEvent) => {
+fullscreenPlayerSeekBackButton.addEventListener('click', (e: MouseEvent) => {
+  _handleSeekBack(e, fullscreenPlayerSeekBackButton)
+})
+
+const _handleSeekForward = (e: MouseEvent, button: HTMLButtonElement) => {
   e.preventDefault()
-  if (buttonSeekForward.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
+  if (button.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
   _seekForward(SEEK_30_SECONDS)
+}
+
+miniPlayerSeekForwardButton.addEventListener('click', (e: MouseEvent) => {
+  _handleSeekForward(e, miniPlayerSeekForwardButton)
 })
 
-buttonRandom.addEventListener('click', (e: MouseEvent) => {
+fullscreenPlayerSeekForwardButton.addEventListener('click', (e: MouseEvent) => {
+  _handleSeekForward(e, fullscreenPlayerSeekForwardButton)
+})
+
+miniPlayerRandomEpisodeButton.addEventListener('click', (e: MouseEvent) => {
   e.preventDefault()
   _playRandomEpisode()
 })
 
-const _enableSeekButtons = () => {
+fullscreenPlayerRandomEpisodeButton.addEventListener('click', (e: MouseEvent) => {
+  e.preventDefault()
+  _playRandomEpisode()
+})
+
+fullscreenPlayerPlaylistButton.addEventListener('click', (e: MouseEvent) => {
+  e.preventDefault()
+
+  if (fullscreenPlayerPlaylistButton.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
+    return
+  }
+
+  if (playlist) {
+    playlist.style.display = "grid"
+  }
+})
+
+fullscreenPlayerSkipPrevButton.addEventListener('click', (e: MouseEvent) => {
+  e.preventDefault()
+
+  if (fullscreenPlayerSkipPrevButton.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
+    return
+  }
+
+  console.log("Play previous episode...")
+  const curIndex = Number(curLink?.dataset.index) - 1
+  _playEpisode(curIndex)
+})
+
+fullscreenPlayerSkipNextButton.addEventListener('click', (e: MouseEvent) => {
+  e.preventDefault()
+
+  if (fullscreenPlayerSkipNextButton.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
+    return
+  }
+
+  console.log("Play next episode...")
+  const curIndex = Number(curLink?.dataset.index) + 1
+  _playEpisode(curIndex)
+})
+
+playlistCloseButton.addEventListener('click', (e: MouseEvent) => {
+  e.preventDefault()
+  if (playlist) {
+    playlist.style.display = "none"
+  }
+})
+
+const _enableSeekAndPlaylistButtons = () => {
   console.log('Enabling seek buttons')
-  buttonSeekBack.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  buttonSeekForward.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerSeekBackButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerSeekForwardButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerSeekBackButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerSeekForwardButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerSkipPrevButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerSkipNextButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerPlaylistButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+
+  // adjust fullscreen prev/next buttons  
+  if (Number(curLink?.dataset.index) === 0) {
+    console.log("\tDisable prev button...")
+    fullscreenPlayerSkipPrevButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
+  }
+  if (Number(curLink?.dataset.index) === (episodes.length - 1)) {
+    console.log("\tDisable next button...")
+    fullscreenPlayerSkipNextButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
+  }
 }
 
-const _disableSeekButtons = () => {
+const _disableSeekAndPlaylistButtons = () => {
   console.log('Disabling seek buttons')
-  buttonSeekBack.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
-  buttonSeekForward.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerSeekBackButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerSeekForwardButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerSeekBackButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerSeekForwardButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerSkipPrevButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerSkipNextButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
 }
 
-const _enableMiniPlayerControls = () => {
-  buttonSeekBack.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  buttonSeekForward.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  buttonPlay.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  buttonStop.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  buttonPlay.classList.add(HIDDEN_CLASS)
-  buttonStop.classList.remove(HIDDEN_CLASS)
+const _enablePlayerControls = () => {
+  miniPlayerSeekBackButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerSeekForwardButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerPlayButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerStopButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerPlayButton.classList.add(HIDDEN_CLASS)
+  miniPlayerStopButton.classList.remove(HIDDEN_CLASS)
+
+  fullscreenPlayerSeekBackButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerSeekForwardButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerSkipPrevButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerSkipNextButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerPlayButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerStopButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerPlayButton.classList.add(HIDDEN_CLASS)
+  fullscreenPlayerStopButton.classList.remove(HIDDEN_CLASS)
+  fullscreenPlayerPlaylistButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
 }
 
 document.addEventListener('click', (e: MouseEvent) => {
-
-  e.preventDefault()
 
   const element = e.target as HTMLElement
 
@@ -184,15 +300,15 @@ document.addEventListener('click', (e: MouseEvent) => {
     : element as HTMLAnchorElement
 
   if (target.tagName === 'A' && target.href && target.dataset.title) {
-    console.log('Link clicked:', target.href)
+
+    e.preventDefault()
+
+    console.log('Episode Link clicked:', target.href)
 
     curLink = target
 
-    console.log('curlink: ', curLink)
-
-    console.log(target.dataset)
-
-    const titleText = `${target.dataset.title} [${target.dataset.duration}]`
+    console.log('curLink: ', curLink)
+    console.log('target.dataset: ', target.dataset)
 
     try {
       const links = JSON.parse(target.dataset.links as string)
@@ -200,13 +316,12 @@ document.addEventListener('click', (e: MouseEvent) => {
       const tracks = JSON.parse(target.dataset.tracks as string)
       console.log('Tracks:', tracks)
 
-      currentlyPlayingTitle.innerHTML = titleText
-      currentlyPlayingTracks.innerHTML = tracks.map((track: string) => {
+      playlistTracks.innerHTML = tracks.map((track: string) => {
         const url = `https://www.google.com/search?q=${encodeURIComponent('site:discogs.com ')}${encodeURIComponent(track)}`
         return `<a href="${url}" target="_blank" rel="noopener noreferrer">${track}</a>`
       }).join('\n')
 
-      currentlyPlayingLinks.innerHTML = links.map((link: string) => {
+      playlistLinks.innerHTML = links.map((link: string) => {
         return `<a href="${link}" target="_blank" rel="noopener noreferrer">${link}</a>`
       }).join('\n')
 
@@ -214,34 +329,38 @@ document.addEventListener('click', (e: MouseEvent) => {
       console.error('Error parsing links and tracks:', e)
     }
 
-    miniPlayerTitle.textContent = titleText
-    miniPlayerDuration.textContent = '00:00:00'
+    const miniTitleText = `${target.dataset.title} [${target.dataset.duration}]`
+
+    miniPlayerTitle.textContent = miniTitleText
+    miniPlayerDuration.textContent = ZERO_ZERO_ZERO_TIME
+
+    fullscreenPlayerTitle.textContent = target.dataset.title ?? "---------"
+    fullscreenPlayerTitleDuration.textContent = target.dataset.duration ?? "--:--:--"
+    fullscreenPlayerDuration.textContent = ZERO_ZERO_ZERO_TIME
+
+    playlistTitle.innerHTML = target.dataset.title ?? "---------"
 
     mfpAudioPlayer.src = target.href
     mfpAudioPlayer.load()
 
-    _enableMiniPlayerControls()
+    _enablePlayerControls()
 
     if (hasMediaSession()) {
       navigator.mediaSession.metadata = new MediaMetadata({
-        title: titleText,
+        title: miniTitleText,
         artist: "musicforprogramming.net",
-        album: titleText,
+        album: miniTitleText,
         artwork: [
           { src: "mfp.png" },
         ]
       })
     }
-
-    // reset About screen scroll position to top when a new link is clicked
-    curAboutScrollTop = 0
   }
 })
 
 document.addEventListener("visibilitychange", () => {
   console.log(`visibility change: ${document.visibilityState}`)
 })
-
 
 const _seekBackward = (offset: number) => {
   const currentTime = Math.floor(mfpAudioPlayer.currentTime - offset)
@@ -260,9 +379,14 @@ const _playRandomEpisode = () => {
   console.log("play random episode...")
   if (episodes.length > 0) {
     const index = Math.floor(Math.random() * episodes.length)
-    const episode = episodes[index] as HTMLAnchorElement
-    episode.click()
+    _playEpisode(index)
   }
+}
+
+const _playEpisode = (index: number) => {
+  console.log("play episode: ", index + 1)
+  const episode = episodes[index] as HTMLAnchorElement
+  episode.click()
 }
 
 if (hasMediaSession()) {
@@ -276,17 +400,17 @@ if (hasMediaSession()) {
 
   navigator.mediaSession.setActionHandler('play', async () => {
     await mfpAudioPlayer.play()
-    showMiniStopButton()
+    showStopButton()
   })
 
   navigator.mediaSession.setActionHandler('pause', async () => {
     mfpAudioPlayer.pause()
-    showMiniPlayButton()
+    showPlayButton()
   })
 
   navigator.mediaSession.setActionHandler('stop', async () => {
     mfpAudioPlayer.pause()
-    showMiniPlayButton()
+    showPlayButton()
   })
 
   navigator.mediaSession.setActionHandler('seekbackward', (details) => {
@@ -312,47 +436,31 @@ if (hasMediaSession()) {
   })
 }
 
-const _toggleAbout = () => {
-
-  let restoreAboutScrollPos = false
-  let restorePlaylistScrollPos = false
-
-  if (!about.classList.contains(ACTIVE_CLASS)) {
-    restoreAboutScrollPos = true
-  } else {
-    restorePlaylistScrollPos = true
-  }
-
-  requestAnimationFrame(() => {
-    about.classList.toggle(ACTIVE_CLASS)
-    playlist.classList.toggle(ACTIVE_CLASS)
-    aboutButton.classList.toggle(HIDDEN_CLASS)
-    closeButton.classList.toggle(HIDDEN_CLASS)
-  })
-
-  if (restoreAboutScrollPos) {
-    requestAnimationFrame(() => {
-      scrollContainer.scrollTo({
-        top: curAboutScrollTop, left: 0, behavior: 'instant'
-      })
-    })
-  }
-
-  if (restorePlaylistScrollPos) {
-    requestAnimationFrame(() => {
-      scrollContainer.scrollTo({
-        top: curPlaylistScrollTop, left: 0, behavior: 'instant'
-      })
-    })
-  }
-}
-
-header.addEventListener('click', (e: MouseEvent) => {
+fullscreenCloseButton.addEventListener('click', (e: MouseEvent) => {
   e.preventDefault()
-  _toggleAbout()
+  if (fullscreenPlayer) {
+    fullscreenPlayer.style.display = "none"
+  }
 })
 
 miniPlayerTitle.addEventListener('click', (e: MouseEvent) => {
   e.preventDefault()
-  _toggleAbout()
+  if (fullscreenPlayer) {
+    fullscreenPlayer.style.display = "grid"
+  }
 })
+
+header.addEventListener('click', (e: MouseEvent) => {
+  e.preventDefault()
+  if (about) {
+    about.style.display = "grid"
+  }
+})
+
+aboutCloseButton.addEventListener('click', (e: MouseEvent) => {
+  e.preventDefault()
+  if (about) {
+    about.style.display = "none"
+  }
+})
+

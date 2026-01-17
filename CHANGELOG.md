@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.3] - 2026-01-17
+
+### Changed
+
+- Fixed edge case in three column episode border pseudo-class rules
+
 ## [1.2.2] - 2026-01-17
 
 ### Changed

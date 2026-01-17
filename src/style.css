@@ -294,9 +294,11 @@ footer {
   width: var(--header-button-size);
   height: var(--header-button-size);
 }
+
 .header-button-spacer {
   display: inline;
 }
+
 .player-button-small {
   width: var(--button-size-small);
   height: var(--button-size-small);
@@ -387,7 +389,19 @@ footer {
 
   #episodes a:nth-child(3n+2) {
     border-left: none;
-    border-right: none;
+    border-right: solid;
+    border-width: 1px;
+  }
+
+  #episodes a:nth-child(3n+3) {
+    border-left: none;
+    border-right: solid;
+    border-width: 1px;
+  }
+
+  #episodes a:last-child {
+    border-right: solid;
+    border-width: 1px;
   }
 }
 

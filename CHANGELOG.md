@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.1] - 2026-01-17
+
+## Added
+
+- Fullscreen button to mini-player controls
+
+
+### Changed
+
+- Refactor styles for improved responsive layouts
+- Change player controls stop button to pause button
+- Update Open Graph image url
+
 ## [1.2.0] - 2026-01-13
 
 ### Added

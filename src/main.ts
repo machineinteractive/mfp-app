@@ -22,10 +22,11 @@ const episodes = episodesContainer.querySelectorAll('A')
 const about = document.querySelector<HTMLDialogElement>('#about')!
 const mfpAudioPlayer = document.querySelector<HTMLAudioElement>('#mfp-audio-player')!
 const miniPlayerPlayButton = document.querySelector<HTMLButtonElement>('#mp-button-play')!
-const miniPlayerStopButton = document.querySelector<HTMLButtonElement>('#mp-button-stop')!
+const miniPlayerPauseButton = document.querySelector<HTMLButtonElement>('#mp-button-pause')!
 const miniPlayerSeekBackButton = document.querySelector<HTMLButtonElement>('#mp-button-seek-back')!
 const miniPlayerSeekForwardButton = document.querySelector<HTMLButtonElement>('#mp-button-seek-forward')!
 const miniPlayerRandomEpisodeButton = document.querySelector<HTMLButtonElement>('#mp-button-random')!
+const miniPlayerFullscreenButton = document.querySelector<HTMLButtonElement>('#mp-button-fullscreen')!
 
 const miniPlayerTitle = document.querySelector<HTMLParagraphElement>('#mini-player-title')!
 const miniPlayerDuration = document.querySelector<HTMLParagraphElement>('#mini-player-duration')!
@@ -38,7 +39,7 @@ const fullscreenPlayerDuration = document.querySelector<HTMLParagraphElement>('#
 const fullscreenPlayerPlaylistButton = document.querySelector<HTMLButtonElement>('#fs-button-playlist')!
 
 const fullscreenPlayerPlayButton = document.querySelector<HTMLButtonElement>('#fs-button-play')!
-const fullscreenPlayerStopButton = document.querySelector<HTMLButtonElement>('#fs-button-stop')!
+const fullscreenPlayerPauseButton = document.querySelector<HTMLButtonElement>('#fs-button-pause')!
 const fullscreenPlayerSeekBackButton = document.querySelector<HTMLButtonElement>('#fs-button-seek-back')!
 const fullscreenPlayerSeekForwardButton = document.querySelector<HTMLButtonElement>('#fs-button-seek-forward')!
 const fullscreenPlayerSkipPrevButton = document.querySelector<HTMLButtonElement>('#fs-button-skip-prev')!
@@ -60,16 +61,16 @@ const hasMediaSession = (): boolean => {
 
 const showPlayButton = () => {
   miniPlayerPlayButton.classList.remove(HIDDEN_CLASS)
-  miniPlayerStopButton.classList.add(HIDDEN_CLASS)
+  miniPlayerPauseButton.classList.add(HIDDEN_CLASS)
   fullscreenPlayerPlayButton.classList.remove(HIDDEN_CLASS)
-  fullscreenPlayerStopButton.classList.add(HIDDEN_CLASS)
+  fullscreenPlayerPauseButton.classList.add(HIDDEN_CLASS)
 }
 
-const showStopButton = () => {
+const showPauseButton = () => {
   miniPlayerPlayButton.classList.add(HIDDEN_CLASS)
-  miniPlayerStopButton.classList.remove(HIDDEN_CLASS)
+  miniPlayerPauseButton.classList.remove(HIDDEN_CLASS)
   fullscreenPlayerPlayButton.classList.add(HIDDEN_CLASS)
-  fullscreenPlayerStopButton.classList.remove(HIDDEN_CLASS)
+  fullscreenPlayerPauseButton.classList.remove(HIDDEN_CLASS)
 }
 
 mfpAudioPlayer.addEventListener('play', () => {
@@ -119,24 +120,24 @@ mfpAudioPlayer.addEventListener('timeupdate', () => {
   //console.log('Audio player time update:', mfpAudioPlayer.currentTime, duration.textContent)
 })
 
-const _handlePlayerStop = (e: MouseEvent, button: HTMLButtonElement) => {
+const _handlePlayerPause = (e: MouseEvent, button: HTMLButtonElement) => {
   e.preventDefault()
 
   if (button.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     console.log('Play button is disabled, ignoring click')
     return
   }
-  console.log('Stop button clicked')
+  console.log('Pause button clicked')
   mfpAudioPlayer.pause()
   showPlayButton()
 }
 
-miniPlayerStopButton.addEventListener('click', (e: MouseEvent) => {
-  _handlePlayerStop(e, miniPlayerPlayButton)
+miniPlayerPauseButton.addEventListener('click', (e: MouseEvent) => {
+  _handlePlayerPause(e, miniPlayerPlayButton)
 })
 
-fullscreenPlayerStopButton.addEventListener('click', (e: MouseEvent) => {
-  _handlePlayerStop(e, fullscreenPlayerStopButton)
+fullscreenPlayerPauseButton.addEventListener('click', (e: MouseEvent) => {
+  _handlePlayerPause(e, fullscreenPlayerPauseButton)
 })
 
 const _handlePlayerPlay = (e: MouseEvent, button: HTMLButtonElement) => {
@@ -145,7 +146,7 @@ const _handlePlayerPlay = (e: MouseEvent, button: HTMLButtonElement) => {
     return
   }
   mfpAudioPlayer.play()
-  showStopButton()
+  showPauseButton()
 }
 
 miniPlayerPlayButton.addEventListener('click', (e: MouseEvent) => {
@@ -276,18 +277,18 @@ const _enablePlayerControls = () => {
   miniPlayerSeekBackButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   miniPlayerSeekForwardButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   miniPlayerPlayButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  miniPlayerStopButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerPauseButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   miniPlayerPlayButton.classList.add(HIDDEN_CLASS)
-  miniPlayerStopButton.classList.remove(HIDDEN_CLASS)
+  miniPlayerPauseButton.classList.remove(HIDDEN_CLASS)
 
   fullscreenPlayerSeekBackButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   fullscreenPlayerSeekForwardButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   fullscreenPlayerSkipPrevButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   fullscreenPlayerSkipNextButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   fullscreenPlayerPlayButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerStopButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  fullscreenPlayerPauseButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   fullscreenPlayerPlayButton.classList.add(HIDDEN_CLASS)
-  fullscreenPlayerStopButton.classList.remove(HIDDEN_CLASS)
+  fullscreenPlayerPauseButton.classList.remove(HIDDEN_CLASS)
   fullscreenPlayerPlaylistButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
 }
 
@@ -400,7 +401,7 @@ if (hasMediaSession()) {
 
   navigator.mediaSession.setActionHandler('play', async () => {
     await mfpAudioPlayer.play()
-    showStopButton()
+    showPauseButton()
   })
 
   navigator.mediaSession.setActionHandler('pause', async () => {
@@ -443,11 +444,19 @@ fullscreenCloseButton.addEventListener('click', (e: MouseEvent) => {
   }
 })
 
-miniPlayerTitle.addEventListener('click', (e: MouseEvent) => {
+const _handleFullscreenOpen = (e: MouseEvent) => {
   e.preventDefault()
   if (fullscreenPlayer) {
     fullscreenPlayer.style.display = "grid"
   }
+}
+
+miniPlayerTitle.addEventListener('click', (e: MouseEvent) => {
+  _handleFullscreenOpen(e)
+})
+
+miniPlayerFullscreenButton.addEventListener('click', (e: MouseEvent) => {
+  _handleFullscreenOpen(e)
 })
 
 header.addEventListener('click', (e: MouseEvent) => {

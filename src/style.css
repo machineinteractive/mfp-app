@@ -10,21 +10,44 @@
   --space-16: 16px;
 
   --mini-player-base-size: 15vh;
+  --mini-player-controls-padding: var(--space-16);
+  --fullscreen-player-controls-padding: var(--space-16);
+
   --main-screen-hidden-z-index: 0;
   --main-screen-visible-z-index: 1;
   --main-header-footer-z-index: 2;
   --fullscreen-player-z-index: 2;
   --modal-z-index: 3;
 
-  --h-header-height: 48px;
-  --episode-a-min-height: 96px;
-  --playlist-a-min-height: 48px;
+  --size-8: 8px;
+  --size-16: 16px;
+  --size-24: 24px;
+  --size-32: 32px;
+  --size-36: 36px;
+  --size-48: 48px;
+  --size-56: 56px;
+  --size-96: 96px;
+
+  --header-padding: var(--size-16);
+  --header-height: var(--size-48);
+
+  --episode-a-min-height: var(--size-96);
+  --playlist-a-min-height: var(--size-48);
+
+  --mini-button-size: var(--size-24);
+  --button-size-small: var(--size-36);
+  --button-size-large: var(--size-56);
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+
+html {
+  font-size: clamp(12px, 4vw, 16px);
 }
 
 html,
@@ -35,6 +58,7 @@ body {
   /* disable scrollbars by default */
   overflow: hidden;
 }
+
 
 .ibm-plex-mono-thin {
   font-family: "IBM Plex Mono", monospace;
@@ -169,7 +193,11 @@ main {
 
 header {
   width: 100dvw;
-  height: var(--h-header-height);
+  height: var(--header-height);
+}
+
+header p {
+  margin: 0;
 }
 
 header,
@@ -182,16 +210,17 @@ footer {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  height: 100%;
 }
 
 .header-nav> :first-child {
   margin-right: auto;
-  padding-left: var(--space-16);
+  padding-left: var(--header-padding);
 }
 
 .header-nav> :last-child {
   margin-left: auto;
-  padding-right: var(--space-16);
+  padding-right: var(--header-padding);
 }
 
 #scroll-container {
@@ -256,19 +285,26 @@ footer {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  min-height: 56px;
-  padding-left: 16px;
-  padding-right: 16px;
+  min-height: var(--button-size-large);
+  padding-left: var(--mini-player-controls-padding);
+  padding-right: var(--mini-player-controls-padding);
 }
 
+.header-button {
+  width: var(--header-button-size);
+  height: var(--header-button-size);
+}
+.header-button-spacer {
+  display: inline;
+}
 .player-button-small {
-  width: 36px;
-  height: 36px;
+  width: var(--button-size-small);
+  height: var(--button-size-small);
 }
 
 .player-button-large {
-  width: 56px;
-  height: 56px;
+  width: var(--button-size-large);
+  height: var(--button-size-large);
 }
 
 .player-controls-disabled {
@@ -282,6 +318,7 @@ footer {
 }
 
 .modal h2,
+.modal h4,
 .screen h1,
 .screen h2,
 .screen h3,
@@ -359,17 +396,14 @@ footer {
   color: inherit;
   text-align: left;
   min-height: var(--playlist-a-min-height);
-  padding: var(--space-16);
+  padding-left: var(--space-16);
+  padding-right: var(--space-16);
+  padding-bottom: var(--space-4);
+  padding-top: var(--space-4);
   display: flex;
   align-items: center;
   text-decoration: none;
   word-break: break-all;
-}
-
-#about h2,
-#about h4 {
-  padding-left: var(--space-16);
-  padding-bottom: var(--space-8);
 }
 
 #about p a {
@@ -420,6 +454,24 @@ footer {
   box-sizing: border-box;
 }
 
+.fullscreen-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  height: var(--header-height);
+}
+
+.fullscreen-header> :first-child {
+  margin-right: auto;
+  padding-left: var(--header-padding);
+}
+
+.fullscreen-header> :last-child {
+  margin-left: auto;
+  padding-right: var(--header-padding);
+}
+
 #fullscreen-player p {
   white-space: nowrap;
   overflow: hidden;
@@ -427,13 +479,6 @@ footer {
   margin: 0;
 }
 
-#fullscreen-player-header {
-  width: 100dvw;
-  display: flex;
-  align-items: center;
-  height: var(--h-header-height);
-  padding-left: var(--space-16);
-}
 
 #fullscreen-player-main {
   height: auto;
@@ -491,8 +536,8 @@ canvas {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  min-height: 56px;
-  padding: var(--space-16);
+  min-height: var(--button-size-small);
+  padding: var(--fullscreen-player-controls-padding);
 }
 
 .modal {
@@ -536,5 +581,22 @@ canvas {
 }
 
 .modal p {
-  padding: var(--space-16);
+  padding-left: var(--space-16);
+  padding-right: var(--space-16);
+}
+
+@media (max-width: 319px) {
+
+  :root {
+
+    --header-padding: var(--size-8);
+    --header-height: var(--size-32);
+    --header-button-size: var(--size-16);
+
+    --button-size-small: var(--size-16);
+    --button-size-large: var(--size-36);
+
+    --mini-player-controls-padding: var(--space-4);
+    --fullscreen-player-controls-padding: var(--size-4);
+  }
 }

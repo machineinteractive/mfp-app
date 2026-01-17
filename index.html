@@ -20,7 +20,7 @@
   <meta property="og:description" content="A PWA remix of musicforprogramming.net" />
   <meta property="og:image:width" content="512" />
   <meta property="og:image:height" content="512" />
-  <meta property="og:image" content="https://mfp-app.pages.dev/mfp.png" />
+  <meta property="og:image" content="https://mfp-app.netlify.app//mfp.png" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="apple-touch-startup-image" href="/splash/apple-splash-2048-2732.png"
     media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
@@ -106,11 +106,10 @@
   <main>
     <header>
       <div class="header-nav">
-        <div style="display: inline; width:24px; height: 24px;"></div>
+        <div class="header-button header-button-spacer"></div>
         <p class="ibm-plex-mono-semibold">mfp;</p>
         <div class="stacked-button-container">
-          <img id="about-button" src="about.svg" alt="About Screen Open Button" width="24" height="24">
-
+          <img class="header-button" id="about-button" src="about.svg" alt="About Screen Open Button">
         </div>
       </div>
     </header>
@@ -901,10 +900,12 @@
           <img id="mp-button-seek-back" class="player-button-small player-controls-disabled" src="seek_back.svg"
             alt="Seek back 30s">
           <img id="mp-button-play" class="player-button-large player-controls-disabled" src="play.svg" alt="Play">
-          <img id="mp-button-stop" class="player-button-large hidden" src="stop.svg" alt="Stop">
+          <img id="mp-button-pause" class="player-button-large hidden" src="pause_circle.svg" alt="Pause">
           <img id="mp-button-seek-forward" class="player-button-small player-controls-disabled" src="seek_forward.svg"
             alt="Seek back 30s">
           <img id="mp-button-random" class="player-button-small" src="random.svg" alt="Pick Random Episode">
+          <img id="mp-button-fullscreen" src="keyboard_arrow_up.svg" class="player-button-small"
+            alt="Open Fullscreen Player">
         </div>
       </div>
     </footer>
@@ -917,7 +918,7 @@
       </div>
 
       <h2>About</h2>
-      <h4>mfp; version: 1.2.0</h4>
+      <h4>mfp; version: 1.2.1</h4>
 
       <p>
         mfp; is a PWA remix of
@@ -947,9 +948,11 @@
 
   <div id="fullscreen-player">
     <div class="fullscreen-container">
-      <div id="fullscreen-player-header">
-        <img id="fullscreen-close-button" src="keyboard_arrow_down.svg" alt="Fullscreen Close Button" width="24"
-          height="24">
+
+      <div class="fullscreen-header">
+        <img class="header-button" id="fullscreen-close-button" src="keyboard_arrow_down.svg"
+          alt="Fullscreen Close Button">
+        <div class="header-button header-button-spacer"></div>
       </div>
 
       <div id="fullscreen-player-main">
@@ -972,7 +975,7 @@
         <img id="fs-button-seek-back" class="player-button-small player-controls-disabled" src="seek_back.svg"
           alt="Seek back 30s">
         <img id="fs-button-play" class="player-button-large player-controls-disabled" src="play.svg" alt="Play">
-        <img id="fs-button-stop" class="player-button-large hidden" src="stop.svg" alt="Stop">
+        <img id="fs-button-pause" class="player-button-large hidden" src="pause_circle.svg" alt="Pause">
         <img id="fs-button-seek-forward" class="player-button-small player-controls-disabled" src="seek_forward.svg"
           alt="Seek back 30s">
         <img id="fs-button-skip-next" class="player-button-small player-controls-disabled" src="skip_next.svg"

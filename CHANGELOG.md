@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.6] - 2026-01-24
+
+### Changed
+
+- Adjusted player button layout
+- Update screenshot
+
+
+
 ## [1.2.5] - 2026-01-24
 
 ### Changed

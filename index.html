@@ -14,13 +14,14 @@
   <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;display=swap"
     rel="stylesheet">
+
   <title>mfp;</title>
   <meta property="og:type" content="website" />
   <meta property="og:title" content="mfp;" />
   <meta property="og:description" content="A PWA remix of musicforprogramming.net" />
   <meta property="og:image:width" content="512" />
   <meta property="og:image:height" content="512" />
-  <meta property="og:image" content="https://mfp-app.netlify.app//mfp.png" />
+  <meta property="og:image" content="https://mfp-app.netlify.app/mfp.png" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="apple-touch-startup-image" href="/splash/apple-splash-2048-2732.png"
     media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
@@ -106,11 +107,13 @@
   <main>
     <header>
       <div class="header-nav">
-        <div class="header-button header-button-spacer"></div>
+        <div class="header-spacer"></div>
         <p class="ibm-plex-mono-semibold">mfp;</p>
-        <div class="stacked-button-container">
-          <img class="header-button" id="about-button" src="about.svg" alt="About Screen Open Button">
-        </div>
+        <button id="about-button">
+          <span class="material-symbols-outlined player-button mini">
+            info
+          </span>
+        </button>
       </div>
     </header>
 
@@ -892,20 +895,65 @@
 
     <footer>
       <div id="mini-player">
-        <div id="mini-player-info">
-          <p id="mini-player-title" class="plex-mono-semibold">---------</p>
-        </div>
+
+        <p id="mini-player-title" class="mini-player-info plex-mono-semibold player-controls-disabled">---------</p>
+
+        <p id="mini-player-timer" class="mini-player-info player-controls-disabled">
+          <span id="mini-player-duration">00:00:00</span>&nbsp;/&nbsp;[<span
+            id="mini-player-title-duration">--:--:--</span>]
+        </p>
+
         <div id="mini-player-controls">
-          <p id="mini-player-duration">00:00:00</p>
-          <img id="mp-button-seek-back" class="player-button-small player-controls-disabled" src="seek_back.svg"
-            alt="Seek back 30s">
-          <img id="mp-button-play" class="player-button-large player-controls-disabled" src="play.svg" alt="Play">
-          <img id="mp-button-pause" class="player-button-large hidden" src="pause_circle.svg" alt="Pause">
-          <img id="mp-button-seek-forward" class="player-button-small player-controls-disabled" src="seek_forward.svg"
-            alt="Seek back 30s">
-          <img id="mp-button-random" class="player-button-small" src="random.svg" alt="Pick Random Episode">
-          <img id="mp-button-fullscreen" src="keyboard_arrow_up.svg" class="player-button-small"
-            alt="Open Fullscreen Player">
+
+          <button id="mp-button-skip-prev" class="player-controls-disabled">
+            <span class="material-symbols-outlined player-button small">
+              skip_previous
+            </span>
+          </button>
+
+
+          <button id="mp-button-seek-back" class="player-controls-disabled">
+            <span class="material-symbols-outlined player-button small">
+              replay
+            </span>
+          </button>
+
+          <button id="mp-button-play" class="player-controls-disabled">
+            <span class="material-symbols-outlined player-button large">
+              play_circle
+            </span>
+          </button>
+
+          <button id="mp-button-pause" class="player-controls-disabled hidden">
+            <span class="material-symbols-outlined player-button large">
+              pause_circle
+            </span>
+          </button>
+
+          <button id="mp-button-seek-forward" class="player-controls-disabled">
+            <span class="material-symbols-outlined player-button small">
+              forward_media
+            </span>
+          </button>
+
+          <button id="mp-button-skip-next" class="player-controls-disabled">
+            <span class="material-symbols-outlined player-button small">
+              skip_next
+            </span>
+          </button>
+
+          <button id="mp-button-random">
+            <span class="material-symbols-outlined player-button small">
+              shuffle
+            </span>
+          </button>
+
+          <button id="mp-button-playlist" class="player-controls-disabled">
+            <span class="material-symbols-outlined player-button small">
+              summarize
+            </span>
+          </button>
+
         </div>
       </div>
     </footer>
@@ -914,11 +962,16 @@
   <div id="about" class="modal">
     <div class="modal-container">
       <div class="modal-header">
-        <img id="about-close-button" src="close.svg" alt="Close About" width="24" height="24">
+        <!-- <img id="about-close-button" src="close.svg" alt="Close About" width="24" height="24"> -->
+        <button id="about-close-button">
+          <span class="material-symbols-outlined player-button mini">
+            close
+          </span>
+        </button>
       </div>
 
       <h2>About</h2>
-      <h4>mfp; version: 1.2.3</h4>
+      <h4>mfp; version: 1.2.4</h4>
 
       <p>
         mfp; is a PWA remix of
@@ -942,55 +995,25 @@
         mfp; app created by <a href="https://machineinteractive.com" target="_blank"
           rel="noopener noreferrer">machineinteractive.com</a>
       </p>
+
+      <p>
+        <a href="https://github.com/machineinteractive/mfp-app" target="_blank" rel="noopener noreferrer">Source
+          code</a>
+      </p>
+
       <p><b>### EOF ###</b></p>
     </div>
   </div>
 
-  <div id="fullscreen-player">
-    <div class="fullscreen-container">
-
-      <div class="fullscreen-header">
-        <img class="header-button" id="fullscreen-close-button" src="keyboard_arrow_down.svg"
-          alt="Fullscreen Close Button">
-        <div class="header-button header-button-spacer"></div>
-      </div>
-
-      <div id="fullscreen-player-main">
-
-        <!-- VISUALIZER GOES HERE... -->
-        <div id="visualizer">
-          <canvas></canvas>
-        </div>
-
-        <div id="fullscreen-player-info">
-          <p id="fullscreen-player-title" class="plex-mono-semibold">---------</p>
-          <p><span id="fullscreen-player-duration">00:00:00</span> / [<span
-              id="fullscreen-player-title-duration">--:--:--</span>]</p>
-        </div>
-      </div>
-
-      <div id="fullscreen-player-controls">
-        <img id="fs-button-skip-prev" class="player-button-small player-controls-disabled" src="skip_prev.svg"
-          alt="Skip Previous">
-        <img id="fs-button-seek-back" class="player-button-small player-controls-disabled" src="seek_back.svg"
-          alt="Seek back 30s">
-        <img id="fs-button-play" class="player-button-large player-controls-disabled" src="play.svg" alt="Play">
-        <img id="fs-button-pause" class="player-button-large hidden" src="pause_circle.svg" alt="Pause">
-        <img id="fs-button-seek-forward" class="player-button-small player-controls-disabled" src="seek_forward.svg"
-          alt="Seek back 30s">
-        <img id="fs-button-skip-next" class="player-button-small player-controls-disabled" src="skip_next.svg"
-          alt="Skip Next">
-        <img id="fs-button-random" class="player-button-small" src="random.svg" alt="Pick Random Episode">
-        <img id="fs-button-playlist" class="player-button-small player-controls-disabled" src="playlist.svg"
-          alt="Show Episode Playlist and Links">
-      </div>
-    </div>
-  </div>
 
   <div id="playlist" class="modal">
     <div class="modal-container">
       <div class="modal-header">
-        <img id="playlist-close-button" src="close.svg" alt="Close Playlist" width="24" height="24">
+        <button id="playlist-close-button">
+          <span class="material-symbols-outlined player-button mini">
+            close
+          </span>
+        </button>
       </div>
 
       <div>
@@ -1000,9 +1023,11 @@
       <div id="playlist-tracks" class="ibm-plex-mono-light-italic">
         <p>----------</p>
       </div>
+
       <div id="playlist-links" class="ibm-plex-mono-semibold-italic">
         <p>----------</p>
       </div>
+
       <p><b>### EOF ###</b></p>
     </div>
   </div>

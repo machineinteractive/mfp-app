@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.2.4] - 2026-01-24
+
+###
+
+- Added project license
+
+### Changed
+
+- Misc refactoring
+- Removed svg buttons and replaced with icon fonts
+- Adjusted media queries
+- Improved player controls responsive design
+- Update screenshot
+
+### Removed
+
+- Removed Fullscreen player
+
+
 ## [1.2.3] - 2026-01-17
 
 ### Changed
@@ -14,7 +33,7 @@
 
 ## [1.2.1] - 2026-01-17
 
-## Added
+### Added
 
 - Fullscreen button to mini-player controls
 

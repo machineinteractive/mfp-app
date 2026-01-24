@@ -26,26 +26,15 @@ const miniPlayerPauseButton = document.querySelector<HTMLButtonElement>('#mp-but
 const miniPlayerSeekBackButton = document.querySelector<HTMLButtonElement>('#mp-button-seek-back')!
 const miniPlayerSeekForwardButton = document.querySelector<HTMLButtonElement>('#mp-button-seek-forward')!
 const miniPlayerRandomEpisodeButton = document.querySelector<HTMLButtonElement>('#mp-button-random')!
-const miniPlayerFullscreenButton = document.querySelector<HTMLButtonElement>('#mp-button-fullscreen')!
+const miniPlayerPlaylistButton = document.querySelector<HTMLButtonElement>('#mp-button-playlist')!
+const miniPlayerSkipPrevButton = document.querySelector<HTMLButtonElement>('#mp-button-skip-prev')!
+const miniPlayerSkipNextButton = document.querySelector<HTMLButtonElement>('#mp-button-skip-next')!
+
 
 const miniPlayerTitle = document.querySelector<HTMLParagraphElement>('#mini-player-title')!
-const miniPlayerDuration = document.querySelector<HTMLParagraphElement>('#mini-player-duration')!
-
-const fullscreenPlayer = document.getElementById('fullscreen-player')!
-const fullscreenCloseButton = document.querySelector<HTMLImageElement>('#fullscreen-close-button')!
-const fullscreenPlayerTitle = document.querySelector<HTMLParagraphElement>('#fullscreen-player-title')!
-const fullscreenPlayerTitleDuration = document.querySelector<HTMLParagraphElement>('#fullscreen-player-title-duration')!
-const fullscreenPlayerDuration = document.querySelector<HTMLParagraphElement>('#fullscreen-player-duration')!
-const fullscreenPlayerPlaylistButton = document.querySelector<HTMLButtonElement>('#fs-button-playlist')!
-
-const fullscreenPlayerPlayButton = document.querySelector<HTMLButtonElement>('#fs-button-play')!
-const fullscreenPlayerPauseButton = document.querySelector<HTMLButtonElement>('#fs-button-pause')!
-const fullscreenPlayerSeekBackButton = document.querySelector<HTMLButtonElement>('#fs-button-seek-back')!
-const fullscreenPlayerSeekForwardButton = document.querySelector<HTMLButtonElement>('#fs-button-seek-forward')!
-const fullscreenPlayerSkipPrevButton = document.querySelector<HTMLButtonElement>('#fs-button-skip-prev')!
-const fullscreenPlayerSkipNextButton = document.querySelector<HTMLButtonElement>('#fs-button-skip-next')!
-const fullscreenPlayerRandomEpisodeButton = document.querySelector<HTMLButtonElement>('#fs-button-random')!
-
+const miniPlayerTimer = document.querySelector<HTMLParagraphElement>('#mini-player-timer')!
+const miniPlayerDuration = document.querySelector<HTMLSpanElement>('#mini-player-duration')!
+const miniPlayerTitleDuration = document.querySelector<HTMLSpanElement>('#mini-player-title-duration')!
 
 const playlist = document.querySelector<HTMLDialogElement>('#playlist')!
 const playlistCloseButton = document.querySelector<HTMLImageElement>('#playlist-close-button')!
@@ -62,15 +51,11 @@ const hasMediaSession = (): boolean => {
 const showPlayButton = () => {
   miniPlayerPlayButton.classList.remove(HIDDEN_CLASS)
   miniPlayerPauseButton.classList.add(HIDDEN_CLASS)
-  fullscreenPlayerPlayButton.classList.remove(HIDDEN_CLASS)
-  fullscreenPlayerPauseButton.classList.add(HIDDEN_CLASS)
 }
 
 const showPauseButton = () => {
   miniPlayerPlayButton.classList.add(HIDDEN_CLASS)
   miniPlayerPauseButton.classList.remove(HIDDEN_CLASS)
-  fullscreenPlayerPlayButton.classList.add(HIDDEN_CLASS)
-  fullscreenPlayerPauseButton.classList.remove(HIDDEN_CLASS)
 }
 
 mfpAudioPlayer.addEventListener('play', () => {
@@ -116,13 +101,12 @@ const _secondsToTime = (seconds: number): string => {
 
 mfpAudioPlayer.addEventListener('timeupdate', () => {
   miniPlayerDuration.textContent = _secondsToTime(mfpAudioPlayer.currentTime)
-  fullscreenPlayerDuration.textContent = _secondsToTime(mfpAudioPlayer.currentTime)
   //console.log('Audio player time update:', mfpAudioPlayer.currentTime, duration.textContent)
 })
 
-const _handlePlayerPause = (e: MouseEvent, button: HTMLButtonElement) => {
+const _handlePlayerPause = (e: MouseEvent) => {
   e.preventDefault()
-
+  const button = e.currentTarget as HTMLButtonElement
   if (button.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     console.log('Play button is disabled, ignoring click')
     return
@@ -132,16 +116,11 @@ const _handlePlayerPause = (e: MouseEvent, button: HTMLButtonElement) => {
   showPlayButton()
 }
 
-miniPlayerPauseButton.addEventListener('click', (e: MouseEvent) => {
-  _handlePlayerPause(e, miniPlayerPlayButton)
-})
+miniPlayerPauseButton.addEventListener('click', _handlePlayerPause)
 
-fullscreenPlayerPauseButton.addEventListener('click', (e: MouseEvent) => {
-  _handlePlayerPause(e, fullscreenPlayerPauseButton)
-})
-
-const _handlePlayerPlay = (e: MouseEvent, button: HTMLButtonElement) => {
+const _handlePlayerPlay = (e: MouseEvent) => {
   e.preventDefault()
+  const button = e.currentTarget as HTMLButtonElement
   if (button.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
@@ -149,32 +128,22 @@ const _handlePlayerPlay = (e: MouseEvent, button: HTMLButtonElement) => {
   showPauseButton()
 }
 
-miniPlayerPlayButton.addEventListener('click', (e: MouseEvent) => {
-  _handlePlayerPlay(e, miniPlayerPlayButton)
-})
+miniPlayerPlayButton.addEventListener('click', _handlePlayerPlay)
 
-fullscreenPlayerPlayButton.addEventListener('click', (e: MouseEvent) => {
-  _handlePlayerPlay(e, fullscreenPlayerPlayButton)
-})
-
-const _handleSeekBack = (e: MouseEvent, button: HTMLButtonElement) => {
+const _handleSeekBack = (e: MouseEvent) => {
   e.preventDefault()
+  const button = e.currentTarget as HTMLButtonElement
   if (button.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
   _seekBackward(SEEK_30_SECONDS)
 }
 
-miniPlayerSeekBackButton.addEventListener('click', (e: MouseEvent) => {
-  _handleSeekBack(e, miniPlayerSeekBackButton)
-})
+miniPlayerSeekBackButton.addEventListener('click', _handleSeekBack)
 
-fullscreenPlayerSeekBackButton.addEventListener('click', (e: MouseEvent) => {
-  _handleSeekBack(e, fullscreenPlayerSeekBackButton)
-})
-
-const _handleSeekForward = (e: MouseEvent, button: HTMLButtonElement) => {
+const _handleSeekForward = (e: MouseEvent) => {
   e.preventDefault()
+  const button = e.currentTarget as HTMLButtonElement
   if (button.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
@@ -182,54 +151,38 @@ const _handleSeekForward = (e: MouseEvent, button: HTMLButtonElement) => {
 }
 
 miniPlayerSeekForwardButton.addEventListener('click', (e: MouseEvent) => {
-  _handleSeekForward(e, miniPlayerSeekForwardButton)
+  _handleSeekForward(e)
 })
 
-fullscreenPlayerSeekForwardButton.addEventListener('click', (e: MouseEvent) => {
-  _handleSeekForward(e, fullscreenPlayerSeekForwardButton)
-})
-
-miniPlayerRandomEpisodeButton.addEventListener('click', (e: MouseEvent) => {
+const _playRandomEpisode = (e: MouseEvent) => {
   e.preventDefault()
-  _playRandomEpisode()
-})
+  console.log("play random episode...")
+  if (episodes.length > 0) {
+    const index = Math.floor(Math.random() * episodes.length)
+    _playEpisode(index)
+  }
+}
 
-fullscreenPlayerRandomEpisodeButton.addEventListener('click', (e: MouseEvent) => {
+miniPlayerRandomEpisodeButton.addEventListener('click', _playRandomEpisode)
+
+
+miniPlayerSkipPrevButton.addEventListener('click', (e: MouseEvent) => {
   e.preventDefault()
-  _playRandomEpisode()
-})
-
-fullscreenPlayerPlaylistButton.addEventListener('click', (e: MouseEvent) => {
-  e.preventDefault()
-
-  if (fullscreenPlayerPlaylistButton.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
+  const button = e.currentTarget as HTMLButtonElement
+  if (button.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
-
-  if (playlist) {
-    playlist.style.display = "grid"
-  }
-})
-
-fullscreenPlayerSkipPrevButton.addEventListener('click', (e: MouseEvent) => {
-  e.preventDefault()
-
-  if (fullscreenPlayerSkipPrevButton.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
-    return
-  }
-
   console.log("Play previous episode...")
   const curIndex = Number(curLink?.dataset.index) - 1
   _playEpisode(curIndex)
 })
 
-fullscreenPlayerSkipNextButton.addEventListener('click', (e: MouseEvent) => {
+miniPlayerSkipNextButton.addEventListener('click', (e: MouseEvent) => {
   e.preventDefault()
-
-  if (fullscreenPlayerSkipNextButton.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
+  const button = e.currentTarget as HTMLButtonElement
+  if (button.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
     return
   }
-
   console.log("Play next episode...")
   const curIndex = Number(curLink?.dataset.index) + 1
   _playEpisode(curIndex)
@@ -246,20 +199,18 @@ const _enableSeekAndPlaylistButtons = () => {
   console.log('Enabling seek buttons')
   miniPlayerSeekBackButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   miniPlayerSeekForwardButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerSeekBackButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerSeekForwardButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerSkipPrevButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerSkipNextButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerPlaylistButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerSkipPrevButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerSkipNextButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerPlaylistButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
 
-  // adjust fullscreen prev/next buttons  
+  // adjust prev/next buttons  
   if (Number(curLink?.dataset.index) === 0) {
     console.log("\tDisable prev button...")
-    fullscreenPlayerSkipPrevButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
+    miniPlayerSkipPrevButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
   }
   if (Number(curLink?.dataset.index) === (episodes.length - 1)) {
     console.log("\tDisable next button...")
-    fullscreenPlayerSkipNextButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
+    miniPlayerSkipNextButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
   }
 }
 
@@ -267,13 +218,14 @@ const _disableSeekAndPlaylistButtons = () => {
   console.log('Disabling seek buttons')
   miniPlayerSeekBackButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
   miniPlayerSeekForwardButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerSeekBackButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerSeekForwardButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerSkipPrevButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerSkipNextButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerSkipPrevButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerSkipNextButton.classList.add(PLAYER_CONTROLS_DISABLED_CLASS)
 }
 
 const _enablePlayerControls = () => {
+  miniPlayerTitle.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerTimer.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+
   miniPlayerSeekBackButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   miniPlayerSeekForwardButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
   miniPlayerPlayButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
@@ -281,15 +233,9 @@ const _enablePlayerControls = () => {
   miniPlayerPlayButton.classList.add(HIDDEN_CLASS)
   miniPlayerPauseButton.classList.remove(HIDDEN_CLASS)
 
-  fullscreenPlayerSeekBackButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerSeekForwardButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerSkipPrevButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerSkipNextButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerPlayButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerPauseButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
-  fullscreenPlayerPlayButton.classList.add(HIDDEN_CLASS)
-  fullscreenPlayerPauseButton.classList.remove(HIDDEN_CLASS)
-  fullscreenPlayerPlaylistButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerSkipPrevButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerSkipNextButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
+  miniPlayerPlaylistButton.classList.remove(PLAYER_CONTROLS_DISABLED_CLASS)
 }
 
 document.addEventListener('click', (e: MouseEvent) => {
@@ -330,14 +276,15 @@ document.addEventListener('click', (e: MouseEvent) => {
       console.error('Error parsing links and tracks:', e)
     }
 
-    const miniTitleText = `${target.dataset.title} [${target.dataset.duration}]`
+    const miniTitleText = target.dataset.title ?? "---------"
 
     miniPlayerTitle.textContent = miniTitleText
+    miniPlayerTitleDuration.textContent = target.dataset.duration ?? "--:--:--"
     miniPlayerDuration.textContent = ZERO_ZERO_ZERO_TIME
 
-    fullscreenPlayerTitle.textContent = target.dataset.title ?? "---------"
-    fullscreenPlayerTitleDuration.textContent = target.dataset.duration ?? "--:--:--"
-    fullscreenPlayerDuration.textContent = ZERO_ZERO_ZERO_TIME
+    // fullscreenPlayerTitle.textContent = target.dataset.title ?? "---------"
+    // fullscreenPlayerTitleDuration.textContent = target.dataset.duration ?? "--:--:--"
+    // fullscreenPlayerDuration.textContent = ZERO_ZERO_ZERO_TIME
 
     playlistTitle.innerHTML = target.dataset.title ?? "---------"
 
@@ -374,14 +321,6 @@ const _seekForward = (offset: number) => {
   const currentTime = Math.floor(mfpAudioPlayer.currentTime + offset)
   console.log('Seeking forward:', currentTime, ' offset:', offset, ' duration:', duration)
   mfpAudioPlayer.currentTime = Math.min(duration, currentTime)
-}
-
-const _playRandomEpisode = () => {
-  console.log("play random episode...")
-  if (episodes.length > 0) {
-    const index = Math.floor(Math.random() * episodes.length)
-    _playEpisode(index)
-  }
 }
 
 const _playEpisode = (index: number) => {
@@ -437,27 +376,26 @@ if (hasMediaSession()) {
   })
 }
 
-fullscreenCloseButton.addEventListener('click', (e: MouseEvent) => {
-  e.preventDefault()
-  if (fullscreenPlayer) {
-    fullscreenPlayer.style.display = "none"
-  }
-})
 
-const _handleFullscreenOpen = (e: MouseEvent) => {
+const _handlePlaylistOpen = (e: MouseEvent) => {
   e.preventDefault()
-  if (fullscreenPlayer) {
-    fullscreenPlayer.style.display = "grid"
+  const button = e.currentTarget as HTMLButtonElement
+  if (button.classList.contains(PLAYER_CONTROLS_DISABLED_CLASS)) {
+    return
+  }
+  if (playlist) {
+    playlist.style.display = "grid"
   }
 }
 
-miniPlayerTitle.addEventListener('click', (e: MouseEvent) => {
-  _handleFullscreenOpen(e)
+miniPlayerPlaylistButton.addEventListener('click', (e: MouseEvent) => {
+  e.preventDefault()
+  _handlePlaylistOpen(e)
 })
 
-miniPlayerFullscreenButton.addEventListener('click', (e: MouseEvent) => {
-  _handleFullscreenOpen(e)
-})
+miniPlayerTitle.addEventListener('click', _handlePlaylistOpen)
+
+miniPlayerPlaylistButton.addEventListener('click', _handlePlaylistOpen)
 
 header.addEventListener('click', (e: MouseEvent) => {
   e.preventDefault()

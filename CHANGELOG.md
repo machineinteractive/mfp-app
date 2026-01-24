@@ -1,8 +1,14 @@
 # Changelog
 
+## [1.2.5] - 2026-01-24
+
+### Changed
+
+- Fixed icon fonts url in style.css
+
 ## [1.2.4] - 2026-01-24
 
-###
+### Added
 
 - Added project license
 

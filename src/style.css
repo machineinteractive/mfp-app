@@ -50,7 +50,7 @@ Material Symbols
 @font-face {
   font-family: 'Material Symbols Outlined';
   font-style: normal;
-  src: url(material-symbols.woff) format('woff');
+  src: url("/assets/material-symbols.woff") format('woff');
 }
 
 .material-symbols-outlined {

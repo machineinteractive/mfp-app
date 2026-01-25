@@ -42,32 +42,6 @@
   --button-size-large: var(--size-56);
 }
 
-/* 
-
-Material Symbols
-
-*/
-@font-face {
-  font-family: 'Material Symbols Outlined';
-  font-style: normal;
-  src: url("/assets/material-symbols.woff") format('woff');
-}
-
-.material-symbols-outlined {
-  font-family: 'Material Symbols Outlined';
-  font-weight: normal;
-  font-style: normal;
-  font-size: var(--default-button-size);
-  /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-}
-
 *,
 *::before,
 *::after {
@@ -354,7 +328,7 @@ footer {
 
 .player-button {
   cursor: pointer;
-  color: var(--c-green);
+  fill: var(--c-green);
 }
 
 .player-button:not(.player-controls-disabled):hover {
@@ -362,18 +336,21 @@ footer {
 }
 
 .player-button.mini {
-  font-size: var(--default-button-size);
+  width: var(--default-button-size);
+  height: var(--default-button-size);
 }
 
 
 .player-button.small {
   cursor: pointer;
-  font-size: var(--button-size-small);
+  width: var(--button-size-small);
+  height: var(--button-size-small);
 }
 
 .player-button.large {
   cursor: pointer;
-  font-size: var(--button-size-large);
+  width: var(--button-size-large);
+  height: var(--button-size-large);
 }
 
 .player-controls-disabled {

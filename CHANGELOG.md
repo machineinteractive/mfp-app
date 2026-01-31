@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.8] - 2026-01-31
+
+### Changed
+
+- Set tap color to transparent
+
 ## [1.2.7] - 2026-01-25
 
 ### Added

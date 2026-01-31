@@ -4,7 +4,6 @@
   --c-green2: #5BF1BA;
   --c-black: #1a1a1a;
   --c-black-mini-player: #2a2a2a;
-  --c-transparent: rgba(0, 0, 0, 0);
   --c-debug: var(--c-cyan);
 
   --space-4: 4px;
@@ -152,22 +151,21 @@ body {
   font-family: "IBM Plex Mono", monospace;
   font-weight: 400;
   font-style: normal;
-
   background-color: var(--c-black);
   color: var(--c-green);
-
   touch-action: manipulation;
 }
 
 button {
-  background-color: var(--c-transparent);
+  background-color: transparent;
   border-radius: 100%;
-  border: 0;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button,

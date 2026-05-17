@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.9] - 2026-05-17
+
+### Changed
+
+- Adjust media query breakpoints
+
+
 ## [1.2.8] - 2026-01-31
 
 ### Changed

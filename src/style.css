@@ -400,7 +400,7 @@ footer {
   border-top-style: solid;
 }
 
-@media screen and (480px < width <=768px) {
+@media screen and (620px < width <=820px) {
   #episodes {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -419,7 +419,7 @@ footer {
 }
 
 
-@media screen and (768px < width) {
+@media screen and (820px < width) {
 
   body {
     --episode-a-min-height: 128px;

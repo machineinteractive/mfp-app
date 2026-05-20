@@ -13,6 +13,7 @@ const ZERO_ZERO_ZERO_TIME = '00:00:00'
 
 const PLAYER_CONTROLS_DISABLED_CLASS = 'player-controls-disabled'
 const HIDDEN_CLASS = 'hidden'
+const EPISODE_SELECTED_CLASS = 'episode-selected'
 const SEEK_30_SECONDS = 30
 
 const header = document.querySelector<HTMLElement>('header')!
@@ -252,7 +253,9 @@ document.addEventListener('click', (e: MouseEvent) => {
 
     console.log('Episode Link clicked:', target.href)
 
+    curLink?.classList.remove(EPISODE_SELECTED_CLASS)
     curLink = target
+    curLink.classList.add(EPISODE_SELECTED_CLASS)
 
     console.log('curLink: ', curLink)
     console.log('target.dataset: ', target.dataset)

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.10] - 2026-05-19
+
+### Added
+
+- Set Episode background color when active, hovering, and selected
+
 ## [1.2.9] - 2026-05-17
 
 ### Changed

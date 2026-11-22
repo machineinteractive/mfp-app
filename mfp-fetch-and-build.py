@@ -5,6 +5,7 @@ import re
 import requests
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import json
+import argparse
 
 
 @dataclass
@@ -18,6 +19,10 @@ class Episode:
     itunes_duration: str
 
 def main():
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--debug", help="skip file write and write output to stdout instead", action="store_true")
+    args = parser.parse_args()
 
     with open("package.json", "r") as f:
         package_data = json.load(f)
@@ -72,10 +77,10 @@ def main():
     r = requests.get("https://musicforprogramming.net" + cur_client_script)
     data = r.text
     #print(data)
-    json_start = data.find("const Xt")
-    json_end = data.find("function Qt(t)")
+    json_start = data.find("const ne")
+    json_end = data.find("const re")
     #print(json_start, json_end)
-    json_data = data[json_start:json_end].replace("const Xt=[", "").replace("];", "")
+    json_data = data[json_start:json_end].replace("const ne = [", "").replace("];", "")
     #print(json_data)
 
     json_data_regex = r"\{(.*?)\}"
@@ -126,20 +131,19 @@ def main():
         print("\n\n")
 
 
-    print("Episodes:", episodes)
-
-    environment = Environment(loader=FileSystemLoader("templates/"), autoescape=select_autoescape())
-    template = environment.get_template("index.html")
-
-    output = template.render(app_version=app_version, episodes=episodes)
-
-    with open("index.html", "w") as f:
-        f.write(output)
-
     episodes_json = json.dumps([episode.__dict__ for episode in episodes], indent=4)
     print("Episodes JSON:", episodes_json)
-    with open("public/episodes.json", "w") as f:
-        f.write(episodes_json)
+
+    if not args.debug:
+        with open("public/episodes.json", "w") as f:
+            f.write(episodes_json)
+
+        environment = Environment(loader=FileSystemLoader("templates/"), autoescape=select_autoescape())
+        template = environment.get_template("index.html")
+        output = template.render(app_version=app_version, episodes=episodes)
+        with open("index.html", "w") as f:
+            f.write(output)
+
 
 if __name__ == "__main__":
     main()
